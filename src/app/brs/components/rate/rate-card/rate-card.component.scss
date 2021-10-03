@@ -1,0 +1,100 @@
+.box {
+    display: flex;
+        flex-wrap: wrap;
+        position: relative;
+        overflow-y: scroll;
+        background-color: #f5f3f3;
+        height: calc(100% - 40px);
+    }
+    
+    .box>* {
+        flex: 1 1 300px;   
+    }
+    
+    .rate-icon{   
+        height: 200px;
+        min-width: 250px;  
+        margin: 5px;
+        flex: 1 1 0%;
+        box-sizing: border-box;
+     }
+     
+    .mat-card-nopadding{
+        padding: 1px;
+        flex-direction: column;
+        height: -webkit-fill-available;
+    }
+
+    .rate-image {
+        background-size: cover;
+        width: 80px;
+        height: 80px;
+        margin: auto;
+        transition: background-image 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      }
+
+
+      .rate-content{
+         padding:5PX;
+      }
+
+      .rate-label{
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+.rate-type {
+    font-size: 12px;
+    font-style: italic;
+    padding-top: 3px;
+    color: cadetblue;
+    flex-direction: column;
+    display: flex;
+  }
+
+  
+  #drill-down{ 
+    background: url('../../../../../assets/icons/drill-down.svg');  
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+  }
+  #edit{ 
+    background: url('../../../../../assets/icons/edit.svg');  
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+  #delete{ 
+    background: url('../../../../../assets/icons/delete.svg');  
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+  .mat-card>.mat-card-actions:last-child{
+      margin-bottom: 0px;
+  }
+
+
+.mat-card-nopadding-footer{    
+    background-color:#f1e5e5;
+    margin: 0px;    
+    margin-bottom: 0px;
+    padding-left:10px;
+}
+
+

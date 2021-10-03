@@ -1,0 +1,116 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="page-header">
+    <div matTooltip="Menu Group [{{caption}}]" matTooltipPosition="below" matTooltipShowDelay="300">
+      {{formTitle}}
+    </div>
+    <button mat-icon-button id="new" class="pullright" tabindex="-1" (click)="onCancelledClicked()"
+      aria-label="Toggle menu" matTooltip="Close" matTooltipPosition="left" matTooltipShowDelay="300">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="start space-between" class="form-container">
+    <form #formData='ngForm' novalidate [formGroup]="paramCreateForm" (ngSubmit)="onSubmit(paramCreateForm)"
+      style="width:100%">
+      <div class="flex-row">
+        <div class="flex-col">
+          <div class="flex-row">
+            <mat-form-field>
+              <input #caption matInput placeholder="Parent Name" formControlName="parentName" [readonly]="true"
+                [disabled]="true">
+            </mat-form-field>
+          </div>
+          <div class="flex-row">
+            <!-- <mat-form-field>
+                              <mat-select placeholder="Menu Type" formControlName="menuType" (selectionChange)="menuTypeChanged()"
+                                  [disabled]="menuTypeReadOnly">
+                                  <mat-option *ngFor="let item of menuTypeList" [value]="item.value">
+                                      {{item.viewValue}}
+                                  </mat-option>
+                              </mat-select>
+                              <mat-hint *ngIf="!isDelete">Select 'Group Menu' for folder, 'Transaction Menu' for Link
+                                  Menu and 'option menu' for hidden menu.</mat-hint>
+                          </mat-form-field> -->
+            <mat-checkbox formControlName="isGroup" color="primary" (change)="groupChanged()">
+              Is Group
+            </mat-checkbox>
+          </div>
+        </div>
+        <!-- <div class="flex-col"> -->
+          <!-- <input #fileInput type="file" name="file" accept="image/*" style="display:none;"
+            (change)="onFileSelected($event)"> -->
+          <!-- <div class="img-container">
+            <div mat-card-avatar class="menu-image" [ngStyle]="{'background-image': 'url('+ imgUrl +')'}"></div>
+          </div> -->
+          <!-- <div fxLayout="column" fxLayoutAlign="space-between center">
+            <button *ngIf="formType!='delete'" mat-raised-button type="button" color="primary"
+              (click)="fileInput.click()">Select Icon</button>
+          </div> -->
+        <!-- </div> -->
+      </div>
+  
+      <div class="flex-row">
+        <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="Parameter Name" formControlName="name" autocomplete="off">
+          <mat-error>Enter 5 to 100 character parameter name, it is required</mat-error>
+          <mat-hint *ngIf="!isDelete">Enter 5 to 50 character parameter name.</mat-hint>
+        </mat-form-field>
+  
+        <!-- <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="पारामिटरकाे नाम" formControlName="nameNepali"
+            autocomplete="off">
+          <mat-error>५ दखि १०० अक्षरसम्मकाे पारामिटरकाे नाम नेपालीमा हाल्नुहाेस, अनिवार्य।</mat-error>
+          <mat-hint *ngIf="!isDelete">५ दखि १०० अक्षरसम्मकाे पारामिटरकाे नाम नेपालीमा हाल्नुहाेस।</mat-hint>
+        </mat-form-field> -->
+      </div>
+  
+      <div class="flex-row" *ngIf="!isGroup">
+        <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="Parameter Code" formControlName="paramCode"
+            autocomplete="off">
+          <mat-error>Enter 3 to 5 character parameter code, it is required.</mat-error>
+          <mat-hint *ngIf="!isDelete">Enter 3 to 5 character parameter code.</mat-hint>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <mat-select placeholder="Datatype" formControlName="dataTypeId" (selectionChange)="groupChanged()"
+            [disabled]="dataTypeReadOnly">
+            <mat-option *ngFor="let item of dataTypeList" [value]="item.id">
+              {{item.datatype}}
+            </mat-option>
+          </mat-select>
+          <mat-hint *ngIf="!isDelete">Select datatype of this parameter.</mat-hint>
+        </mat-form-field>
+      </div>
+  
+  
+      <div class="flex-row" *ngIf="!isGroup">
+        <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="Description" formControlName="description"
+            autocomplete="off">
+          <mat-error>Enter description from 10 to 1000 character. It is required.</mat-error>
+          <mat-hint *ngIf="!isDelete">Enter description from 10 to 1000 character.</mat-hint>
+        </mat-form-field>
+  
+        <!-- <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="बिवरण" formControlName="descriptionNepali"
+            autocomplete="off">
+          <mat-error>१० दखि १००० अक्षरकाे बिवरण नेपालीमा हाल्नुहाेस। अनिवार्य।</mat-error>
+          <mat-hint *ngIf="!isDelete">१० दखि १००० अक्षरकाे बिवरण नेपालीमा हाल्नुहाेस।</mat-hint>
+        </mat-form-field> -->
+      </div>
+  
+      <div class="flex-row" *ngIf="(dataTypeId=='10' || dataTypeId =='20') && isGroup != true">
+        <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="Script" formControlName="script" autocomplete="off">
+          <mat-error>Enter script from 1 to 1000 character. It is required.</mat-error>
+          <mat-hint *ngIf="!isDelete">Enter description from 1 to 1000 character.</mat-hint>
+        </mat-form-field>
+      </div>
+  
+      <mat-card-actions style="padding-left:15px;">
+        <button id="save" *ngIf="formType=='create' || formType=='edit'" mat-raised-button color="primary" type="button"
+          (click)="formData.ngSubmit.emit()" [disabled]="!formData.form.valid">{{saveButtonCaption}}</button>
+        <app-alert id="save" *ngIf="formType=='delete'" message="Do you want to delete?" caption="Delete"
+          (success)="delete()"></app-alert>
+      </mat-card-actions>
+    </form>
+  </div>

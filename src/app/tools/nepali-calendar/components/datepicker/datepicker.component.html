@@ -1,0 +1,34 @@
+<div [matMenuTriggerFor]="calendarPopUp" #menu style="background-color: transparent; width: 0px; "></div>
+<mat-form-field fxFlex class="full-width" floatLabel="auto">
+    <mat-label>{{placeHolder}}</mat-label>
+    <date-input #dateinput [placeholder]="placeHolder" [dateFormat]="dateFormat" [withTime]="withTime" [value]="myValue"
+        [required]="required" [disabled]="disabled" [errorState]="errorState"  (controlGotFocus)="focus()"
+              
+        (onDateChanged)="dateChange($event)"></date-input>
+    <button mat-button type="button" *ngIf="myValue && !disabled" [matTooltip]="clearTooltip" tabindex="-1" matSuffix
+        mat-icon-button aria-label="Clear" (click)="clearText()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <button mat-button [matTooltip]="changeDateTooltip" type="button" matTooltipPosition="above" matSuffix
+        mat-icon-button aria-label="Calendar" tabindex="-1" (click)="changeDateType()">
+        <mat-icon>repeat</mat-icon>
+    </button>
+    <button mat-button [matTooltip]="showCalendarTooltip" tabindex="-1" type="button" matSuffix mat-icon-button
+        aria-label="Calendar" (click)="showPicker()">
+        <mat-icon>date_range</mat-icon>
+    </button>
+    <mat-hint>
+        {{dateType===1? caption.AD[language]+', ': caption.BS[language] +', '}}
+        {{dateFormat}} {{withTime==true? 'hh:mm':''}}
+        {{dateType===1? caption.BS[language]+', ': caption.AD[language] +', '}}
+        {{dateType===1? dateBS : dateAD}}
+    </mat-hint>
+    <mat-error>
+        <strong>{{errorMessage}}</strong>.</mat-error>
+</mat-form-field>
+
+<mat-menu #calendarPopUp="matMenu" class="popup" x-position="before" yPosition="below" [overlapTrigger]="false" (close)="onMenuClosed()">
+    <div (click)="$event.stopPropagation()">
+        <app-calendar-popup #calPopUp [dateRange]="false" (DateTimeChanged)="dateChangedFromPopUp($event)"></app-calendar-popup>
+    </div>
+</mat-menu>

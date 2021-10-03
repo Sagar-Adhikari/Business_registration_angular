@@ -1,0 +1,12 @@
+
+<div class="slide-pane-container">
+    <app-slide-panel [activePane]="isLeftVisible ? 'left' : 'right'">
+        <div leftpane>
+            <app-aps-list #list (buttonClicked)="onButtonClicked($event)"></app-aps-list>
+        </div>
+        <div rightpane>
+            <app-aps-register #createForm *ngIf="formType!='print'" (buttonClicked)="onButtonClicked($event)">
+            </app-aps-register>
+        </div>
+    </app-slide-panel>
+</div>

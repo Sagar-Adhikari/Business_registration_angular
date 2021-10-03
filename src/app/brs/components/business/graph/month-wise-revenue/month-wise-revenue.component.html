@@ -1,0 +1,16 @@
+  <div class="flex-row">
+    <span style="text-align: center;"> {{title}}</span>
+  </div>
+  <div class="graph-container">
+    <div class="graph">
+      <button mat-button color="primary" (click)="buttonClick('+')"
+        style="height: 100%; min-width: 90px; font-size: 20px;" matTooltip="अघिल्लाे बर्प" matTooltipPosition="left">
+       {{leftButtonCaption}} </button>
+      <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels"
+        [options]="lineChartOptions" [legend]="lineChartLegend" [chartType]="lineChartType">
+      </canvas>
+      <button mat-button color="primary" (click)="buttonClick('-')"
+        style="height: 100%;  min-width: 90px; font-size: 20px;" matTooltip="पछिल्लाे बर्प" matTooltipPosition="right">
+        {{rightButtonCaption}} </button>
+    </div>
+  </div>

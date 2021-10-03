@@ -1,0 +1,105 @@
+<div class="body-container">
+  <!-- <ngx-loading [show]="loading"></ngx-loading> -->
+  <form
+    #formData="ngForm"
+    class="login-form"
+    novalidate
+    [formGroup]="loginForm"
+    (ngSubmit)="onSubmit(loginForm)"
+  >
+    <div class="avatar-container">
+      <button
+        type="button"
+        mat-icon-button
+        mat-card-avatar
+        class="login-avatar pull-right"
+        [ngStyle]="{ 'background-image': 'url(' + currentUrl + ')' }"
+      ></button>
+      <br />
+      <div>
+        <h1>{{ label.cityName }}</h1>
+      </div>
+      <div>
+        <h2>{{ label.productName }}</h2>
+      </div>
+    </div>
+
+    <div class="flex-row">
+      <mat-form-field class="item">
+        <input
+          #useremail
+          matInput
+          placeholder="{{ placeHolder.email }}"
+          autocomplete="email"
+          formControlName="email"
+          autocomplete="off"
+        />
+        <mat-icon matSuffix>perm_identity</mat-icon>
+        <mat-error>{{ errorLabel.email }}</mat-error>
+        <mat-hint>
+          <strong> {{ hintLabel.email }} </strong>
+        </mat-hint>
+      </mat-form-field>
+    </div>
+    <div class="flex-row">
+      <mat-form-field class="item">
+        <input
+          matInput
+          placeholder="{{ placeHolder.password }}"
+          [type]="hidePassword ? 'password' : 'text'"
+          (blur)="hidePassword = true"
+          formControlName="password"
+          autocomplete="off"
+        />
+        <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+          hidePassword ? 'visibility' : 'visibility_off'
+        }}</mat-icon>
+        <mat-error>{{ errorLabel.password }}</mat-error>
+        <mat-hint>{{ hintLabel.password }}</mat-hint>
+      </mat-form-field>
+    </div>
+    <div style="display:flex;">
+      <div class="item">
+
+        <button mat-raised-button color="primary" style="width: 100px;">
+          {{ placeHolder.save }}
+        </button>
+        <!-- <span class="small-note" *ngIf="!loginForm.valid">
+          {{label.loginNote}}
+        </span> -->
+      </div>
+    </div>
+    <!-- <div class="item item-align-end">
+      <span class="small-note">
+        {{label.forgotPassword1}}
+        <a routerLink="/core/forgot-password"> {{label.forgotPassword2}} </a>
+      </span>
+    </div>
+    <div class="item">
+      <span class="small-note">
+        {{label.dontHaveAccount1}}
+        <a routerLink="/core/register"> {{label.dontHaveAccount2}} </a>
+      </span>
+    </div> -->
+  </form>
+
+  <!-- <div class="right-side-info">
+    <div class="right-side-info-background" [ngStyle]="{'background-image': 'url('+ infoBackgroundUrl +')'}">
+      <mat-card class="right-side-info-text" style="width:100%; text-align:center;">
+        <h3> {{label.whyUs}} </h3>
+        <span style="text-align: left">
+          <h4>{{label.point1}}</h4>
+          <h4>{{label.point2}}</h4>
+          <h4>{{label.point3}}</h4>
+          <h4>{{label.point4}}</h4>
+          <h4>{{label.point5}}</h4>
+          <h4>{{label.point6}}</h4>
+          <h4><a routerLink="/core/more-info">{{label.infoMore}}</a></h4>
+        </span>
+      </mat-card>
+      <div class="right-side-info-background-transparent"
+        [ngStyle]="{'background-image': 'url('+ infoTransparentUrl +')'}">
+      </div>
+    </div>
+  </div> -->
+</div>

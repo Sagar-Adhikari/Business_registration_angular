@@ -1,0 +1,280 @@
+<div style="width:100%; height:100%; overflow-y: scroll;">
+  <!-- <div style="height: 200px;">
+    
+  </div> -->
+  <table style="width:100%;" mat-table #table [dataSource]="dataSource" matSort aria-label="Elements"
+    class="mat-elevation-z8">
+    <ng-container matColumnDef="verifiedOn">
+      <th mat-header-cell *matHeaderCellDef style="padding-left: 0px;">
+        <!-- <button type="button" mat-icon-button #menuTriggerFilter="matMenuTrigger" [matMenuTriggerFor]="filterMenu"
+          (menuOpened)="onFilterOpen($event)" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"
+          id="filterMenuId" color="primary" matTooltip="रेकर्ड फिल्टर गर्न यहाँ थिच्नुहाेस।">
+          <mat-icon>settings</mat-icon>
+        </button> -->
+      </th>
+      <td mat-cell *matCellDef="let row">
+      </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="blank">
+      <th mat-header-cell *matHeaderCellDef style="padding-left: 0px;">
+        <!-- <button type="button" mat-icon-button #menuTriggerFilter="matMenuTrigger" [matMenuTriggerFor]="filterMenu"
+            (menuOpened)="onFilterOpen($event)" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()"
+            id="filterMenuId" color="primary" matTooltip="रेकर्ड फिल्टर गर्न यहाँ थिच्नुहाेस।">
+            <mat-icon>settings</mat-icon>
+          </button> -->
+      </th>
+      <td mat-cell *matCellDef="let row">
+      </td>
+    </ng-container>
+
+    <!-- <ng-container matColumnDef="totalCapital">
+      <th mat-header-cell *matHeaderCellDef class="cell-right" arrowPosition="after">
+        पूँजी</th>
+      <td mat-cell *matCellDef="let row" style="text-align:right;display: table-cell;">
+        {{row.totalCapital}}
+      </td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="redgNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        दर्ता नं.
+      </th>
+      <td mat-cell *matCellDef="let row">{{ 
+            row.fullRedgNo
+        }}</td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="totalCapital">
+      <th class="cell-right" mat-header-cell *matHeaderCellDef matSortDisabled>
+        पूँजी
+      </th>
+      <td mat-cell *matCellDef="let row" style="text-align:right;display: table-cell;">{{ 
+            row.totalCapital | number
+        }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="businessName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        ब्यवसायकाे नाम</th>
+      <td mat-cell *matCellDef="let row" style="min-width:200px;">
+        {{row.businessName}}
+        <br>
+        <span style="font-size: 12px;">
+          {{row.businessNameEnglish}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ownerName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        ब्यवसायीकाे नाम</th>
+      <td mat-cell *matCellDef="let row">
+        {{row.member.nameInNepali}}
+        <br>
+        <span style="font-size: 12px;">
+          {{row.member.nameInEnglish}}
+        </span>
+        <br>
+        <span style="font-size: 10px;">
+          Citizenship No: {{row.member.citizenShipNo}}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="businessClassName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        ब्यवसायकाे किसिम</th>
+      <td mat-cell *matCellDef="let row">
+        <span>
+          {{row.businessClass.caption}}
+        </span>
+        <br>
+        <span style="font-size: 12px;">
+          {{row.businessType.caption}}
+        </span>
+        <span *ngIf="row.businessSize" style="font-size: 10px;">
+          <br>
+          {{row.businessSize.caption}}
+        </span>
+      </td>
+    </ng-container>
+
+
+    <!-- <ng-container matColumnDef="businessTypeName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        ब्यवसायकाे किसिम
+      </th>
+      <td mat-cell *matCellDef="let row">{{row.businessType.businessTypeName}}</td>
+    </ng-container> -->
+
+    <ng-container matColumnDef="createdOn">
+      <th class="cell-right" mat-header-cell *matHeaderCellDef mat-sort-header arrowPosition="after">
+        मिति
+      </th>
+      <td mat-cell *matCellDef="let row" style="text-align:right;display: table-cell;">{{ row.createdOn }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef>
+        <button type="button" *ngIf="!viewType" mat-icon-button (click)="onAddClicked()" color="primary"
+          matTooltip="नयाँ ब्यवसाय दर्ता">
+          <mat-icon>add</mat-icon> {{viewType}}
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let row">
+        <button type="button" mat-icon-button #menuTriggerMenu="matMenuTrigger" [matMenuTriggerFor]="menu"
+          (menuOpened)="onMenuOpen(row.id, row.status)" (click)="$event.stopPropagation()"
+          (keydown)="$event.stopPropagation()" matTooltip='अरू काम गर्न यहाँ थिच्नुहाेस।'>
+          <mat-icon>menu</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="c1">
+      <th mat-header-cell *matHeaderCellDef> </th>
+    </ng-container>
+    <ng-container matColumnDef="c2">
+      <th mat-header-cell *matHeaderCellDef [attr.colspan]="2">
+        <mat-form-field (click)="$event.stopPropagation()">
+          <input matInput [(ngModel)]="filterBusinessName" placeholder="Filter Redg. No or Business Name"
+            (ngModelChange)="this.inputValueChanged.next($event)" autocomplete="off">
+          <button mat-button type="button" matTooltip="clear text" tabindex="-1" *ngIf="filterBusinessName" matSuffix
+            mat-icon-button aria-label="Clear" (click)="filterBusinessName=null;loadBusiness();">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </th>
+    </ng-container>
+    <ng-container matColumnDef="c3">
+      <th mat-header-cell *matHeaderCellDef [attr.colspan]="1">
+        <mat-form-field (click)="$event.stopPropagation()">
+          <input matInput [(ngModel)]="filterOwnerName" placeholder="Filter Citizen No or Name or mobileNo"
+            (ngModelChange)="this.inputValueChanged.next($event)" autocomplete="off">
+          <button mat-button type="button" matTooltip="clear text" tabindex="-1" *ngIf="filterOwnerName" matSuffix
+            mat-icon-button aria-label="Clear" (click)="filterOwnerName=null;loadBusiness();">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="c4">
+      <th mat-header-cell *matHeaderCellDef [attr.colspan]="1">
+        <mat-form-field (click)="$event.stopPropagation()">
+          <input matInput [(ngModel)]="filterBusinessType" placeholder="Filter Business Type"
+            (ngModelChange)="this.inputValueChanged.next($event)" autocomplete="off">
+          <button mat-button type="button" matTooltip="clear text" tabindex="-1" *ngIf="filterBusinessType" matSuffix
+            mat-icon-button aria-label="Clear" (click)="filterBusinessType=null;loadBusiness();">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </th>
+    </ng-container>
+    <ng-container matColumnDef="c5">
+      <th mat-header-cell *matHeaderCellDef> </th>
+    </ng-container>
+
+    <ng-container matColumnDef="c6">
+      <th mat-header-cell *matHeaderCellDef [attr.colspan]="1">
+        <datepicker-range [option]="dpOption" (onDateChanged)="dateChanged($event)"></datepicker-range>
+      </th>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-header-row *matHeaderRowDef="['c1','c2', 'c3', 'c4','c5','c6'];  sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator #paginator [length]="length" [pageIndex]="0">
+  </mat-paginator>
+</div>
+
+<mat-menu x-position="after" yPosition="below" [overlapTrigger]="false" #menu="matMenu">
+  <button *ngIf="roleId>0" mat-menu-item (click)="menuClicked(1)">
+    डिटेल हेर्न
+  </button>
+  <button *ngIf="allowEdit" mat-menu-item class="menuOpnBtn" (click)="menuClicked(2)">
+    सच्याउन
+  </button>
+  <button *ngIf="allowVerify" mat-menu-item class="menuOpnBtn" (click)="menuClicked(3)">
+    भेरिफाइ गर्न
+  </button>
+  <button *ngIf="roleId>0 && (rowStatus==3)" mat-menu-item class="menuOpnBtn" (click)="menuClicked(4)">
+    नबिकरण गर्न
+  </button>
+  <button *ngIf="roleId>0  && (rowStatus==2)" mat-menu-item class="menuOpnBtn" (click)="menuClicked(5)">
+    प्रमाण पत्र प्रिन्ट गर्न
+  </button>
+  <button *ngIf="roleId>0  && (rowStatus==2)" mat-menu-item class="menuOpnBtn" (click)="menuClicked(7)">
+    परिचय पत्र प्रिन्ट गर्न
+  </button>
+  <button *ngIf="roleId>0  && (rowStatus==1)" mat-menu-item class="menuOpnBtn" (click)="menuClicked(6)">
+    हटाउन
+  </button>
+</mat-menu>
+
+<!-- <mat-menu x-position="after" yPosition="below" [overlapTrigger]="false" #moduleMenu="matMenu">
+    <div fxLayout="column" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+      <div class="menu-header">फिल्टर</div>
+      <div class="flex-row">
+        <mat-form-field>
+          <input #userName matInput [(ngModel)]="filterName" placeholder="युजरकाे नाम" autocomplete="off">
+          <mat-hint>युजरकाे नाम भर्नुहाेस।</mat-hint>
+        </mat-form-field>
+  
+        <mat-form-field>
+          <input matInput [(ngModel)]="filterRoleName" placeholder="राेल" autocomplete="off">
+          <mat-hint>राेलकाे नाम भर्नुहाेस।.</mat-hint>
+        </mat-form-field>
+      </div>
+  
+      <div class="menu-footer mat-elevation-z12">
+        <button mat-button style="min-width:100px;" (click)="clearFilter()">फिल्टर हटाउ </button>
+        <button mat-button style="min-width:80px;" (click)="filterData()">फिल्टर</button>
+        <button mat-button style="min-width:80px;" (click)="menuCancel()">रद्द</button>
+      </div>
+    </div>
+  </mat-menu>   -->
+
+<!-- <mat-menu x-position="after" yPosition="below" [overlapTrigger]="false" #filterMenu="matMenu">
+  <div fxLayout="column" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+    <div class="menu-header">फिल्टर</div>
+    <div class="flex-row">
+      <mat-form-field>
+        <input matInput #elRedgNo [(ngModel)]="redgNo" placeholder="दर्ता नं." autocomplete="off">
+        <mat-hint>दर्ता नं. भर्नुहाेस।</mat-hint>
+      </mat-form-field>
+      <mat-form-field *ngIf="!viewType">
+        <mat-select placeholder="स्टाटस" [(ngModel)]="status">
+          <mat-option *ngFor="let item of statusList" [value]="item.id">
+            {{item.text}}
+          </mat-option>
+        </mat-select>
+        <mat-hint>स्टाटस छान्नुहाेस ।</mat-hint>
+        <mat-error>स्टाटस छान्नुहाेस ।</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="businessName" placeholder="ब्यवसायकाे नाम" autocomplete="off">
+        <mat-hint>ब्यवसायकाे नाम भर्नुहाेस।.</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [(ngModel)]="ownerName" placeholder="ब्यवसायीकाे नाम" autocomplete="off">
+        <mat-hint>ब्यवसायीकाे नाम भर्नुहाेस।.</mat-hint>
+      </mat-form-field>
+      <datepicker-range [option]="dpOption" (onDateChanged)="dateChanged($event)"></datepicker-range>
+
+
+    </div>
+
+    <div class="menu-footer mat-elevation-z12">
+      <button mat-button style="min-width:100px;" (click)="clearFilter()">फिल्टर हटाउ </button>
+      <button mat-button style="min-width:80px;" (click)="filterData()">फिल्टर</button>
+      <button mat-button style="min-width:80px;" (click)="menuCancel()">रद्द</button>
+    </div>
+  </div>
+</mat-menu> -->

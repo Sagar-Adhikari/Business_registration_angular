@@ -1,0 +1,9 @@
+<div class="panes" fxLayout="row" [@slide]="activePane" (@slide.start)="animStart($event)"
+    (@slide.done)="animEnd($event)">
+    <div fxFlex style="width:100%;">
+        <ng-content select="[leftpane]" *ngIf="isLeftView"></ng-content>
+    </div>
+    <div fxFlex style="width:100%;">
+        <ng-content select="[rightpane]" *ngIf="isRightView"></ng-content>
+    </div>
+</div>

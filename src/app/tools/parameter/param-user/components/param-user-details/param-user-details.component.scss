@@ -1,0 +1,54 @@
+#back{ 
+    background: url('../../../../../../assets/icons/back.svg');  
+    background-size: 16px 16px;
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-color: transparent;
+    margin-left: 5px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+  }
+
+#new{ 
+    width: 30px;
+    height: 30px;
+    line-height: 30px;  
+}
+  .title{
+    width: 100%; overflow: hidden; padding:0px 10px;
+  }
+  .parent-name{
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+  }
+  
+  .parent-label{
+    width:fit-content;
+    padding-right: 15px;
+    white-space: nowrap;
+    display: block;
+  }
+
+  .parent-label-xs{
+    width:fit-content;
+    padding-right: 15px;
+    white-space: nowrap;
+    display: block;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .parent-name-xs{
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    font-size:15px;
+  }
+
+ 

@@ -1,0 +1,43 @@
+<div style="width:100%; height:100%; overflow-y: scroll;">
+  <div class="flex-row">
+    <mat-form-field>
+      <mat-select placeholder="ब्यवसायकाे किसिम" [(ngModel)]="filterType" (selectionChange)="loadData()">
+        <mat-option *ngFor="let item of annex4" [value]="item.id">
+          {{item.caption}}
+        </mat-option>
+      </mat-select>
+      <mat-hint>ब्यवसायकाे किसिम छान्नुहाेस ।</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" [(ngModel)]="filterWard" placeholder="फिल्टर वार्ड नम्वर"
+        (ngModelChange)="this.inputValueChanged.next($event)" autocomplete="off">
+      <button mat-button type="button" matTooltip="clear text" tabindex="-1" *ngIf="filterWard" matSuffix
+        mat-icon-button aria-label="Clear" (click)="filterWard=null;loadData();">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <datepicker-range [option]="dpOption" (onDateChanged)="dateChanged($event)"></datepicker-range>
+    <div>
+      <button type="button" mat-button (click)="export()">Export Data</button>
+    </div>
+  </div>
+  <table style="width:600%;" mat-table #table [dataSource]="dataSource" matSort aria-label="Elements"
+    class="mat-elevation-z8">
+    <ng-container *ngFor="let item of displayedColumns; let myIndex = index"
+      matColumnDef="{{displayedColumns[myIndex]}}">
+      <th mat-header-cell *matHeaderCellDef>
+        {{ headings[myIndex] }}
+      </th>
+
+      <td mat-cell *matCellDef="let row">
+        {{row[myIndex]}}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  <mat-paginator #paginator [length]="length" [pageIndex]="0">
+  </mat-paginator>
+</div>

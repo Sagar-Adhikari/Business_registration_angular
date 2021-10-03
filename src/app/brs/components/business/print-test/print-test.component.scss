@@ -1,0 +1,161 @@
+.body-container {
+  display: block;
+  height: calc(100vh - 92px);
+}
+
+// .my_class {
+//   //     width: 100%;
+//   //  //   height: 100%;
+//   //     background-image: url('../../../../../assets/background/roshi-certificate.jpg');
+//   //    // background-size: contain;
+//   //     display: block;
+//   //     background-repeat: no-repeat;
+//   //     overflow: auto;
+//   //     overflow-x: hidden;
+//   //     font-family: 'PCS NEPALI';
+//   //     background-size: 210mm 297mm;
+
+//   /* width: 100%; */
+//   /* background-image: url(roshi-certificate.jpg); */
+//   display: block;
+//   background-repeat: no-repeat;
+//   overflow: auto;
+//   overflow-x: hidden;
+//   font-family: "PCS NEPALI";
+//   /* background-size: 210mm 297mm; */
+// }
+
+// .pcs-nepali{
+//     font-family: 'PCS NEPALI',
+// }
+
+// .fiscal-year {
+//   margin: 240px 0px 0px 235px;
+//   width: 150px;
+// }
+
+.redg-no {
+  margin: -11px 0px 0px 200px;
+  width: 150px;
+}
+.owner-name1 {
+  margin: 80px 0px 0px 175px;
+  width: 500px;
+}
+.certificate-date {
+  margin: -35px 0px 0px 673px;
+  width: 150px;
+}
+.ward-no {
+  margin: 0px 0px 0px 336px;
+}
+
+.business-name {
+  margin: 192px 0px 0px 300px;
+  width: 500px;
+}
+.business-address {
+  margin: 0px 0px 0px 311px;
+  width: 500px;
+}
+.total-capital {
+  margin: 0px 0px 0px 290px;
+  width: 150px;
+}
+
+.working-capital {
+  margin: 3px 0px 0px 340px;
+  width: 150px;
+}
+
+.current-capital {
+  margin: -35px 0px 0px 625px;
+  width: 150px;
+}
+
+.owner-name2 {
+  margin: 42px 0px 0px 242px;
+  width: 250px;
+}
+.permanent-address {
+  margin: -35px 0px 0px 635px;
+  width: 190px;
+}
+.temporary-address {
+  margin: 0px 0px 0px 292px;
+  width: 210px;
+}
+.father-name {
+  margin: -35px 0px 0px 625px;
+  width: 200px;
+}
+.grand-father-name {
+  margin: 0px 0px 0px 295px;
+  width: 210px;
+}
+
+.mother-name {
+  margin: -35px 0px 0px 640px;
+  width: 190px;
+}
+
+.issued-person-name {
+  margin: 112px 0px 18px 570px;
+  width: 250px;
+}
+
+.issued-date {
+  margin: 37px 0px 110px 540px;
+  width: 150px;
+}
+.wrap {
+  height: 35px;
+  max-height: 35px;
+  //width: 150px;
+  display: flex;
+  overflow: hidden;
+  font-family: "PCS NEPALI";
+}
+
+.wrap span {
+  align-self: flex-end;
+}
+
+span {
+  white-space: pre;
+}
+// .body-container{
+//     display: block;
+//     height: calc(100% - 40px);
+//     background-color: white;
+// }
+
+#close {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+// @media print {
+//   @page {
+//     margin: 0;
+//   }
+//   body * {
+//     visibility: hidden;
+//   }
+//   #printer-content,
+//   #printer-content * {
+//     visibility: visible;
+//   }
+//   #printer-content {
+//     // position: absolute;
+//     left: 0;
+//     top: 0;
+//     width: 71mm;
+//     min-width: 71mm;
+//     max-width: 71mm;
+//     font-size: 12px;
+//     //   font-family: "Courier New", "Courier" !IMPORTANT;
+//     font-weight: 700;
+//   }
+// }

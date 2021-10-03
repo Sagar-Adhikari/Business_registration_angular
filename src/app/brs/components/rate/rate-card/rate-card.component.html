@@ -1,0 +1,35 @@
+<div class="box">
+  <div fxFlex class="rate-icon" *ngFor="let rate of rates">
+    <mat-card class="mat-card-nopadding">
+      <div fxFlex class="rate-content">
+        <div mat-card-avatar class="rate-image"></div>
+        <span class="rate-label">
+          {{rate.name}}
+        </span>
+        <div *ngIf="rate.isGroup" class="rate-type">
+          ग्रुप
+        </div>
+        <div *ngIf="!rate.isGroup" class="rate-type">
+          <span *ngIf="rate.capital>0" class="display-field-nepali">
+            पुँजीः {{rate.capital}}
+          </span>
+          <span class="display-field-nepali">
+            शुल्कः {{rate.rate}}
+          </span>
+        </div>
+      </div>
+      <mat-card-actions class="mat-card-nopadding-footer">
+        <button mat-button mat-icon-button id="drill-down" matTooltip="[{{rate.name}}] अन्तर्गतकाे डिटेल"
+          matTooltipPosition="above" matTooltipShowDelay="300" *ngIf="rate.isGroup" (click)="onDrillClicked(rate.id)">
+        </button>
+
+        <button mat-button mat-icon-button id="edit" matTooltip="[{{rate.name}}] लाइ सच्याउन" matTooltipPosition="above"
+          matTooltipShowDelay="300" (click)="onEditClicked(rate.id)">
+        </button>
+        <button mat-button mat-icon-button class="mat-icon-button-xs" id="delete" matTooltip="[{{rate.name}}] लाइ हटाउन"
+          matTooltipPosition="above" matTooltipShowDelay="300" (click)="onDeleteClicked(rate.id)">
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

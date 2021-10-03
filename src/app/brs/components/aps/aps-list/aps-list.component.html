@@ -1,0 +1,105 @@
+<div style="width:100%; height:100%; overflow-y: scroll;">
+  <table style="width:100%;" mat-table #table [dataSource]="dataSource" matSort aria-label="Elements"
+    class="mat-elevation-z8">
+    <ng-container matColumnDef="wardNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        WardNo
+      </th>
+      <td mat-cell *matCellDef="let row">{{ row.wardNo | number }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th class="cell-right" mat-header-cell *matHeaderCellDef matSortDisabled>
+        Title
+      </th>
+      <td mat-cell *matCellDef="let row" style="display: table-cell;">
+        {{ row.title }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        DESCRIPTION
+      </th>
+      <td mat-cell *matCellDef="let row" style="min-width:500px;">
+        <div innerHTML="{{ row.description }}"></div>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createdOn">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>
+        CreatedOn
+      </th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.createdOn }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef style="max-width: 30px;">
+        <button type="button" mat-icon-button (click)="onAddClicked()" color="primary" matTooltip="AddNew">
+          <mat-icon>add</mat-icon>
+        </button>
+      </th>
+      <td mat-cell *matCellDef="let row" style="max-width: 30px;">
+        <button type="button" mat-icon-button (click)="showDetails(row.id)" matTooltip="Details">
+          <mat-icon>menu</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="c1">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field (click)="$event.stopPropagation()" style="max-width: 50px;">
+          <input matInput [(ngModel)]="filterWard" placeholder="Filter Ward No"
+            (ngModelChange)="this.inputValueChanged.next($event)" autocomplete="off">
+          <button mat-button type="button" matTooltip="clear text" tabindex="-1" *ngIf="filterWard" matSuffix
+            mat-icon-button aria-label="Clear" (click)="filterWard=null;loadApe(true);">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="c2">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field (click)="$event.stopPropagation()" style="max-width: 100px;">
+          <input matInput [(ngModel)]="filterTitle" placeholder="Filter Title"
+            (ngModelChange)="this.inputValueChanged.next($event)" autocomplete="off">
+          <button mat-button type="button" matTooltip="clear text" tabindex="-1" *ngIf="filterTitle" matSuffix
+            mat-icon-button aria-label="Clear" (click)="filterTitle=null;loadApe(true);">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="c3">
+      <th mat-header-cell *matHeaderCellDef>
+        <mat-form-field (click)="$event.stopPropagation()">
+          <input matInput [(ngModel)]="filterDescription" placeholder="Filter Description"
+            (ngModelChange)="this.inputValueChanged.next($event)" autocomplete="off">
+          <button mat-button type="button" matTooltip="clear text" tabindex="-1" *ngIf="filterDescription" matSuffix
+            mat-icon-button aria-label="Clear" (click)="filterDescription=null;loadApe(true);">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </th>
+    </ng-container>
+
+    <ng-container matColumnDef="c4">
+      <th mat-header-cell *matHeaderCellDef [attr.colspan]="1" style="max-width: 150px;">
+        <datepicker-range [option]="dpOption" (onDateChanged)="dateChanged($event)"></datepicker-range>
+      </th>
+    </ng-container>
+    <ng-container matColumnDef="c5" >
+      <th mat-header-cell *matHeaderCellDef style="max-width: 30px;"> </th>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+    <tr mat-header-row *matHeaderRowDef="['c1','c2', 'c3', 'c4','c5']"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator #paginator [length]="length" [pageIndex]="0"> </mat-paginator>
+</div>

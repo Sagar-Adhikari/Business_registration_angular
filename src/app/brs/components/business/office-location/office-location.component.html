@@ -1,0 +1,7 @@
+<div class="body-container" fxLayout="column">
+  <div class="map" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)"></div>
+  <div>
+    <button style="width: 200px;" type="button" color="primary" mat-raised-button
+      (click)="saveLocation()">Save Office Location</button>
+  </div>
+</div>

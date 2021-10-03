@@ -1,0 +1,61 @@
+<!-- <div fxLayout="row" fxLayoutAlign="space-between none" class="page-header">
+        <button *ngIf="!isElectronMode" mat-button printSectionId="print-section" type="button" ngxPrint style="width:100px;"
+          color="primary">
+          <mat-icon>
+            print
+          </mat-icon>
+        </button>
+        <button *ngIf="isElectronMode" mat-button (click)="print('print-section')" type="button" style="width:100px;"
+          color="primary">
+          <mat-icon>
+            print
+          </mat-icon>
+        </button>
+      
+        <app-alert id="markAsPrinted" message="प्रिन्ट भयाे भनेर मार्क गर्ने हाे?" caption="प्रिन्ट भयाे"
+          (success)="markAsPrinted()" style="margin-top: -13px;"></app-alert>
+        <button mat-raised-button mat-icon-button class="pullright" matTooltip="Close" (click)="closeButtonClick()" id="close"
+          matTooltipPosition="left" matTooltipShowDelay="300">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div> -->
+
+
+<div class="body-container" style="flex-direction: column;">
+    <div fxLayout="row" style="width: 100%;" fxLayoutAlign="space-between none" class="page-header">
+        <div class="show-ape-header">व्यावसायिक क्षेत्रका संभाव्यताहरू</div>
+        <div class="show-ward" style="margin:-10px;">
+            वडाः
+            <p style="display: inline-block; margin-left: 15px;margin-right: 15px;width: 5px; 
+                    cursor: pointer; color: #3f51b5;text-decoration: underline; " (click)="filterData(0)">All</p>
+
+            <p *ngFor="let item of wardList" style="display: inline-block; margin-left: 15px;margin-right: 15px;width: 5px; 
+                  cursor: pointer; color: #3f51b5;text-decoration: underline; " (click)="filterData(item.id)">
+                {{ item.wardNo }}</p>
+        </div>
+
+        <!-- <input type="text" style="height: 25px; width: 100px;"> -->
+        <button style="width:100px;" *ngIf="!isLoggedIn" mat-raised-button color="primary" routerLink="/core/login">Log
+            In</button>
+
+    </div>
+    <div class="ward-option">
+        <table style="width:100%; line-height: 22px;" mat-table [dataSource]="dataSource" matSort aria-label="Elements"
+            class="mat-elevation-z8">
+            <ng-container matColumnDef="title">
+                <td mat-cell *matCellDef="let row" style="padding-top: 20px;padding-bottom: 10px;">
+                    <div style="font-weight: bold;">विषय : </div>
+                    {{ row.title }}
+                    <br>
+                    <br>
+                    <div style="font-weight: bold;">विवरण : </div>
+                    <div class="businessInformation" innerHTML="{{ row.description }}"></div>
+                    <div style="font-weight: bold;">प्रविस्ष्ट मिति : </div>
+                    <div>{{row.createdOn}}</div>
+                </td>
+            </ng-container>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+        </table>
+        <mat-paginator #paginator [length]="length" [pageIndex]="0"> </mat-paginator>
+    </div>
+</div>

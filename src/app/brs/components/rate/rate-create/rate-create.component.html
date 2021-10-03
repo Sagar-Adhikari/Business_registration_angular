@@ -1,0 +1,82 @@
+<div fxLayout="row" fxLayoutAlign="space-between center" class="page-header">
+  <div matTooltip="Menu Group [{{caption}}]" matTooltipPosition="below" matTooltipShowDelay="300">
+    {{formTitle}}
+  </div>
+  <button mat-icon-button id="new" class="pullright" tabindex="-1" (click)="onCancelledClicked()"
+    aria-label="Toggle menu" matTooltip="Close" matTooltipPosition="left" matTooltipShowDelay="300">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+<div fxLayout="row" fxLayoutAlign="start space-between" class="form-container">
+  <form #formData='ngForm' novalidate [formGroup]="rateCreateForm" (ngSubmit)="onSubmit(rateCreateForm)"
+    style="width:100%">
+    <div class="flex-row">
+      <div class="flex-col">
+        <div class="flex-row">
+          <mat-form-field>
+            <input #caption matInput placeholder="ग्रुप" formControlName="parentName" [readonly]="true"
+              [disabled]="true">
+          </mat-form-field>
+        </div>
+        <div class="flex-row">
+          <mat-checkbox [disabled]="isDelete" formControlName="isGroup" color="primary" (change)="groupChanged()">
+            ग्रुप हाे ?
+          </mat-checkbox>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex-row">
+      <mat-form-field>
+        <input matInput [readonly]="isDelete" placeholder="बिवरण" formControlName="name" autocomplete="off">
+        <mat-error>अनुसुचीकाे बिवरण जरूरी छ ।</mat-error>
+        <mat-hint *ngIf="!isDelete">५ देखी ५०० अक्षरसम्मकाे बिवरण ।</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-row" *ngIf="!isGroup">
+      <mat-form-field class="display-field-nepali">
+        <input matInput [readonly]="isDelete" placeholder="पूँजी" formControlName="capital" autocomplete="off">
+        <mat-error>जम्मा पूँजीकाे सिमा जरूरी छ ।</mat-error>
+        <mat-hint *ngIf="!isDelete">जम्मा पूँजीकाे सिमा भर्नुहाेस ।</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field class="display-field-nepali">
+        <!-- <mat-select placeholder="शुल्क" formControlName="dataTypeId" (selectionChange)="groupChanged()"
+            [disabled]="dataTypeReadOnly">
+            <mat-option *ngFor="let item of dataTypeList" [value]="item.id">
+              {{item.datatype}}
+            </mat-option>
+          </mat-select> -->
+        <input matInput [readonly]="isDelete" placeholder="शुल्क" formControlName="rate" autocomplete="off">
+        <mat-error>दर्ता शुल्क जरूरी छ ।</mat-error>
+        <mat-hint *ngIf="!isDelete">लाग्ने दर्ता शुल्क भर्नुहाेस ।</mat-hint>
+      </mat-form-field>
+    </div>
+
+
+    <!-- <div class="flex-row" *ngIf="!isGroup">
+        <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="Description" formControlName="description"
+            autocomplete="off">
+          <mat-error>Enter description from 10 to 1000 character. It is required.</mat-error>
+          <mat-hint *ngIf="!isDelete">Enter description from 10 to 1000 character.</mat-hint>
+        </mat-form-field>
+      </div> -->
+
+    <!-- <div class="flex-row" *ngIf="(dataTypeId=='10' || dataTypeId =='20') && isGroup != true">
+        <mat-form-field>
+          <input matInput [readonly]="isDelete" placeholder="Script" formControlName="script" autocomplete="off">
+          <mat-error>Enter script from 10 to 1000 character. It is required.</mat-error>
+          <mat-hint *ngIf="!isDelete">Enter description from 10 to 1000 character.</mat-hint>
+        </mat-form-field>
+      </div> -->
+
+    <mat-card-actions style="padding-left:15px;">
+      <button id="save" *ngIf="formType=='create' || formType=='edit'" mat-raised-button color="primary" type="button"
+        (click)="formData.ngSubmit.emit()" [disabled]="!formData.form.valid">{{saveButtonCaption}}</button>
+      <app-alert id="save" *ngIf="formType=='delete'" message="Do you want to delete?" caption="Delete"
+        (success)="delete()"></app-alert>
+    </mat-card-actions>
+  </form>
+</div>

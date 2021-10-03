@@ -1,0 +1,36 @@
+<div fxLayout="row" fxLayoutAlign="center center" class="value-bg">
+  <mat-form-field *ngIf='!node.isGroup && node.details[0].dataTypeId==30' class="full-width">
+    <input matInput [placeholder]="placeHolder" [(ngModel)]="value" autocomplete="off">
+    <mat-hint *ngIf="lang==0">Enter Numeric Value</mat-hint>
+    <mat-hint *ngIf="lang==1">अंकमा डाटा भर्नुहाेस</mat-hint>
+  </mat-form-field>
+  <mat-form-field *ngIf='!node.isGroup && node.details[0].dataTypeId==40' class="full-width">
+    <input matInput [placeholder]="placeHolder" [(ngModel)]="value" autocomplete="off">
+    <mat-hint *ngIf="lang==0">Enter Text Value</mat-hint>
+    <mat-hint *ngIf="lang==1">अक्षरमा डाटा भर्नुहाेस</mat-hint>
+  </mat-form-field>
+  <div fxFlex fxLayout='row' *ngIf='!node.isGroup && node.details[0].dataTypeId==50'>
+    <datepicker #dpicker [option]="dpOption" [(ngModel)]="value"></datepicker>
+  </div>
+  <div fxFlex fxLayout= "row" fxFlexAlign="end end" *ngIf='!node.isGroup && node.details[0].dataTypeId==60' class="full-width">
+      <mat-checkbox  *ngIf='!node.isGroup && node.details[0].dataTypeId==60' color="primary"
+       [(ngModel)]="value" color="primary">{{ lang==0? node.name: node.nameNepali}}
+    </mat-checkbox>
+  </div>
+ 
+  <mat-form-field *ngIf="!node.isGroup && (node.details[0].dataTypeId==10 || node.details[0].dataTypeId==20)"
+  class="full-width">
+    <mat-select [placeholder]="placeHolder" [(ngModel)]="value">
+      <mat-option *ngFor="let item of node.details[0].selectList" [value]="item.id">
+        {{item.text}}
+      </mat-option>
+    </mat-select>
+    <mat-hint *ngIf="lang==0">Select sutaible value</mat-hint>
+    <mat-hint *ngIf="lang==1">उपयुक्त डाटा छान्नुहाेस</mat-hint>
+  </mat-form-field>
+
+
+  <button color="primary" mat-button (click)="save()">
+    <mat-icon>save</mat-icon>
+  </button>
+</div>

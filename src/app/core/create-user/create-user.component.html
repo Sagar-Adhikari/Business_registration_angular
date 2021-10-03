@@ -1,0 +1,82 @@
+<form #formData='ngForm' novalidate [formGroup]="userCreateForm">
+  <div class="menu-header">नयाँ युजर</div>
+  <div class="flex-row" style="max-height: 70vh; overflow-y:auto;">
+    <div class="flex-row">
+      <mat-form-field class="item">
+        <input #elFirstName matInput placeholder="नाम" formControlName="firstName" autocomplete="off">
+        <mat-hint>पहिलाे नाम भर्नुहाेस।</mat-hint>
+        <mat-error>पहिलाे नाम भर्नुहाेस।</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-row">
+      <mat-form-field class="item">
+        <input matInput placeholder="थर" formControlName="lastName" autocomplete="off">
+        <mat-hint>थर भर्नुहाेस।</mat-hint>
+        <mat-error>थर भर्नुहाेस।</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-row">
+      <mat-form-field class="item">
+        <input matInput placeholder="इमेल" formControlName="email" autocomplete="off">
+        <mat-hint>इमेल भर्नुहाेस।</mat-hint>
+        <mat-error>इमेलकाे फर्म्याट मिलेन।</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-row">
+      <mat-form-field>
+        <input matInput placeholder="पासवर्ड" [type]="hidePassword ? 'password' : 'text'" (blur)="hidePassword=true;"
+          formControlName="password" autocomplete="off">
+        <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{hidePassword ? 'visibility' :
+          'visibility_off'}}</mat-icon>
+        <mat-error>पासवर्डकाे फर्म्याट मिलेन।</mat-error>
+        <mat-hint> पासवर्ड भर्नुहाेस।</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-row">
+      <mat-form-field class="item">
+        <input matInput placeholder="माेबाइल नं." formControlName="mobileNo" autocomplete="off">
+        <mat-hint>माेबाइल नं. भर्नुहाेस।</mat-hint>
+        <mat-error> १० अंककाे माेबाइल नं भएन । </mat-error>
+      </mat-form-field>
+    </div>
+
+
+    <div class="flex-row">
+        <mat-form-field class="item">
+          <input type="number" matInput placeholder="वडा नं." formControlName="wardId" autocomplete="off">
+          <mat-hint>वडा नं. भर्नुहाेस।</mat-hint>
+          <mat-error> वडा नं. भर्नुहाेस। </mat-error>
+        </mat-form-field>
+      </div>
+
+    <div class="flex-row">
+      <!-- <mat-form-field class="item">
+        <input matInput placeholder="राेल" formControlName="roleId">
+        <mat-hint>राेल छान्नुहाेस।</mat-hint>
+        <mat-error>राेल जरूरी छ।</mat-error>
+      </mat-form-field> -->
+      <mat-form-field class="item">
+        <mat-select placeholder="राेल" formControlName="roleId">
+          <mat-option *ngFor="let item of roleList" [value]="item.id">
+            {{item.roleName}}
+          </mat-option>
+        </mat-select>
+        <mat-hint>राेल छान्नुहाेस।</mat-hint>
+        <mat-error>राेल जरूरी छ।</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex-col" fxLayoutAlign="space-between center">
+      <!-- <div class="item"> -->
+      <button mat-raised-button color="primary" style="width:100px;" (click)="onSubmit(userCreateForm)">
+        सेभ</button>
+      <button type="button" mat-raised-button color="primary" style="width:100px;" (click)="cancelClick()">
+        रद्द</button>
+      <!-- </div> -->
+    </div>
+  </div>
+</form>

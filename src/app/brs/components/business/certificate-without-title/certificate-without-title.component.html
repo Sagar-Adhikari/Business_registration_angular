@@ -1,0 +1,293 @@
+<div fxLayout="row" fxLayoutAlign="space-between none" class="page-header">
+    <button *ngIf="!isElectronMode" mat-button printSectionId="print-section" type="button" ngxPrint style="width:100px;"
+      color="primary">
+      <mat-icon>
+        print
+      </mat-icon>
+    </button>
+    <button *ngIf="isElectronMode" mat-button (click)="print('print-section')" type="button" style="width:100px;"
+      color="primary">
+      <mat-icon>
+        print
+      </mat-icon>
+    </button>
+  
+    <app-alert id="markAsPrinted" message="प्रिन्ट भयाे भनेर मार्क गर्ने हाे?" caption="प्रिन्ट भयाे"
+      (success)="markAsPrinted()" style="margin-top: -13px;"></app-alert>
+    <button mat-raised-button mat-icon-button class="pullright" matTooltip="Close" (click)="closeButtonClick()" id="close"
+      matTooltipPosition="left" matTooltipShowDelay="300">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="body-container">
+  
+    <div *ngIf="certificate" class="my_class">
+      <div id="print-section">
+        <div class="sheet" style="font-size: 14px;
+        font-family: 'PCS NEPALI';
+        width: 210mm; 
+        height: 397mm;
+        border: 1px solid rgb(255, 255, 255);
+        margin:0px;
+        page-break-after: avoid ;
+        overflow: hidden;">
+          <!-- <div style="display: flex;  height: fit-content;"
+          [style.marginTop.px]="marginTop">
+            <span style="margin:auto;font-size: 50px; font-weight: bold;">
+              {{companyName}}
+            </span>
+          </div>
+          <div style="display: flex; height: fit-content">
+            <span style="margin:auto; font-weight: bold; 
+            font-size: 22px;">
+              नगर कार्यपालिकाकाे कार्यालय
+            </span>
+          </div>
+  
+          <div style="display: flex; height: fit-content">
+            <span style="margin:auto; font-weight: bold; 
+              font-size: 15px;">
+              {{companyAddress1}}
+            </span>
+          </div>
+  
+          <div style="display: flex; height: fit-content">
+            <span style="margin:auto; font-weight: bold; 
+                font-size: 15px;">
+              {{companyAddress2}}
+            </span>
+          </div> -->
+          <div style="display: flex;" [style.marginTop.px]="marginTop">
+          </div>
+          <div style="display: flex;height: 0px;">
+            <div style="border: 1px solid;
+              background-size: cover;
+              width: 150px;
+              height: 150px;
+              margin: auto;
+              border-radius: 5%;
+              background-position: center;
+              margin-left: 560px;"
+              [ngStyle]="{'background-image': 'url('+ imgUrl +')'}"
+              >
+            </div>
+          </div>
+  
+          <!-- <div mat-card-avatar class="menu-image" [ngStyle]="{'background-image': 'url('+ imgUrl +')'}"></div> -->
+  
+          <div style="display: flex;  margin-top: 50px;" [style.marginLeft.px]="marginLeft">
+            <span>
+              <strong>अार्थिक बर्षः </strong><span
+                style="border-bottom: 1px dotted; min-width: 100px; text-align: center; display: inline-block;">{{certificate.fYear}}</span>
+            </span>
+          </div>
+  
+          <div style="display: flex; " [style.marginLeft.px]="marginLeft">
+            <span>
+              <strong> दर्ता नंः </strong><span
+                style="border-bottom: 1px dotted; min-width: 100px; text-align: center;display: inline-block;">{{certificate.redgNo}}</span>
+            </span>
+          </div>
+          <div style="display: flex;margin-top: 50px; margin-bottom: 50px;">
+            <span style="margin:auto; font-weight: bold; font-size: 30px; ">
+              । ब्यवसाय दर्ता प्रमाण पत्र ।
+            </span>
+          </div>
+  
+          <div style="display: flex; height: fit-content;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block; width: 250px; overflow: hidden;">
+              <strong>श्री </strong> <span
+                style="display: inline-block; width: 200px; border-bottom: 1px dotted; margin-left: 2px;">
+                {{certificate.member.nameInNepali}} </span>
+            </span>
+            <span style=" display: inline-block; margin-left: 200px;">
+              <strong>मितिः </strong><span style="display: inline-block;width: 125px;border-bottom: 1px dotted;">
+                {{printedOn}}
+              </span>
+            </span>
+          </div>
+  
+          <!-- <div style="display: flex;height: fit-content;" [style.marginLeft.px]="marginLeft">
+            <span>
+              {{ companyName}}
+            </span>
+          </div> -->
+  
+          <div style="display: flex;height: fit-content;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block; ">
+              {{ companyName}} बडा नं
+              <span style="display:inline-block; width:50px; border-bottom: 1px dotted;">
+                {{certificate.houseOwners[0].wardNo}}
+              </span>
+            </span>
+          </div>
+  
+          <div style="display: flex;height: fit-content;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block; ">
+              {{companyAddress1}}
+            </span>
+          </div>
+  
+          <div style="display: flex; margin-right: 80px; margin-top: 50px; height: fit-content;"
+            [style.marginLeft.px]="marginLeft">
+            <span>
+              तपाइले यस नगरपालिका क्षेत्र भित्र देहाय बमाेजिमकाे व्यवसाय सञ्चालन गर्नका लागि दर्ता गरी पाउँ भनि यस
+              कार्यालयमा दिनु भएकाे अार्थिक एेनकाे अनुसुचिमा उल्लेखित दरकाे अाधारमा ताेकिए बमाेजिम अार्थिक कर लिने
+              प्रयाेजनका लागि उक्त व्यवसाय दर्ता गरी याे प्रमाण पत्र दिइएकाे छ।
+            </span>
+          </div>
+  
+  
+          <div style="display: flex; margin-top:30px;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block;">
+              <strong>व्यवसायकाे नाम  </strong>
+              <span style="display: inline-block;width: 500px;border-bottom: 1px dotted;">
+                {{certificate.businessName}}
+              </span>
+            </span>
+          </div>
+  
+          <div style="display: flex;" [style.marginLeft.px]="marginLeft">
+              <span style="display: inline-block;">
+                <strong>व्यवसाय  </strong>
+                <span style="display: inline-block;width: 550px;border-bottom: 1px dotted;">
+                  {{certificate.businessClass.caption}}, {{certificate.businessType.caption}} 
+                </span>
+              </span>
+            </div>
+    
+  
+  
+          <div style="display: flex;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block;">
+              <strong>व्यवसायकाे गर्ने ठेगाना </strong>
+              <span style="display: inline-block;width: 455px;border-bottom: 1px dotted; overflow: hidden;">
+                {{certificate.houseOwners[0].municipality.municipalityName}},
+                वडा नं {{certificate.houseOwners[0].wardNo}},
+                {{certificate.houseOwners[0].tole}},
+                घर नं {{certificate.houseOwners[0].houseNo}}
+              </span>
+            </span>
+          </div>
+  
+          <div style="display: flex;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block;">
+              <strong>कुल पूँजी रू </strong>
+              <span style="display: inline-block;width: 200px;border-bottom: 1px dotted;">
+                {{certificate.totalCapital}}
+              </span>
+            </span>
+          </div>
+  
+          <div style="display: flex;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block; ">
+              <strong>चालु पूँजी  </strong>
+              <span style="display: inline-block;width: 200px;border-bottom: 1px dotted;">
+                {{certificate.workingCapital}}
+              </span>
+            </span>
+            <span style="display: inline-block; margin-left: 65px; ">
+              <strong>स्थिर पूँजी  </strong>
+              <span style="display: inline-block;width: 200px;border-bottom: 1px dotted;">
+                {{certificate.currentCapital}}
+              </span>
+            </span>
+          </div>
+  
+          <div style="display: flex; margin-top: 20px;" [style.marginLeft.px]="marginLeft">
+            <span>
+              <strong>व्यवसाय संचालककाे बिवरण</strong>
+            </span>
+          </div>
+  
+          <div style="display: flex;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block;">
+              <strong>नाम  </strong>
+              <span style="display: inline-block;width: 250px;border-bottom: 1px dotted;">
+                {{certificate.member.nameInNepali}}
+              </span>
+            </span>
+            <span style="display: inline-block; margin-left: 30px; ">
+              <strong>साबिक ठेगाना  </strong>
+              <!-- <span style="display: inline-block;width: 200px;border-bottom: 1px dotted; overflow: hidden;">
+                {{certificate.member.memberAddresses[0].municipality.municipalityName}},
+                {{certificate.member.memberAddresses[0].wardNo}},
+                {{certificate.member.memberAddresses[0].tole}}
+              </span> -->
+              <span style="display: inline-block;width: 200px;border-bottom: 1px dotted; overflow: hidden;">
+                {{certificate.member.memberAddresses[0].municipality.municipalityName}},
+                {{certificate.member.memberAddresses[0].wardNo}}
+              </span>
+            </span>
+          </div>
+  
+          <div style="display: flex;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block;">
+              <strong>हालकाे ठेगाना  </strong>
+              <span style="display: inline-block;width: 186px;border-bottom: 1px dotted; overflow: hidden;">
+                {{certificate.member.memberAddresses[1].municipality.municipalityName}},
+                {{certificate.member.memberAddresses[1].wardNo}}
+              </span>
+            </span>
+            <span style="display: inline-block; margin-left: 30px; ">
+              <strong>बाबुकाे नाम  </strong>
+              <span style="display: inline-block;width: 215px;border-bottom: 1px dotted;">
+                {{certificate.member.fathersName}}
+              </span>
+            </span>
+          </div>
+  
+          <div style="display: flex;" [style.marginLeft.px]="marginLeft">
+            <span style="display: inline-block;">
+              <strong>अामाकाे नाम  </strong>
+              <span style="display: inline-block;width: 185px;border-bottom: 1px dotted;">
+                {{certificate.member.mothersName}}
+              </span>
+            </span>
+            <span style="display: inline-block; margin-left: 30px; ">
+              <strong>बाजेका नाम  </strong>
+              <span style="display: inline-block;width: 215px;border-bottom: 1px dotted;">
+                {{certificate.member.grandFathersName}}
+              </span>
+            </span>
+          </div>
+  
+  
+  
+          <div style="display: block; margin-left: 455px; margin-top: 50px;">
+            <!-- <div style="display: block; margin-left: 200px; flex-direction: column; height: fit-content;"> -->
+            <div style="display: flex; height: 40px;">
+              <span style="border-bottom: 1px solid; margin: auto"> प्रमाण पत्र दिने अधिकारीकाे</span>
+            </div>
+  
+            <div style="display: flex; height: 40px;">
+              <span style="display: inline-block; ">
+                <strong>नाम थर  </strong>
+                <span style="display: inline-block;width: 200px;border-bottom: 1px dotted;">
+                  {{certificate.issuedPersonName}}
+                </span>
+              </span>
+            </div>
+            <div style="display: flex; height: 40px;">
+              <span style="display: inline-block;">
+                <strong>दस्तखत  </strong>
+                <span style="display: inline-block;width: 205px;border-bottom: 1px dotted;">
+  
+                </span>
+              </span>
+            </div>
+            <div style="display: flex; height: 40px;">
+              <span style="display: inline-block;">
+                <strong>मिति  </strong>
+                <span style="display: inline-block;width: 225px;border-bottom: 1px dotted;">
+                  {{printedOn}}
+                </span>
+              </span>
+            </div>
+            <!-- </div> -->
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

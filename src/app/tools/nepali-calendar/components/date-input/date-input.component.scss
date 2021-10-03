@@ -1,0 +1,39 @@
+div {
+    display: flex;
+  }
+  
+  $mat-form-field-default-infix-width: 200px !default;
+  
+  input {
+    border:none;
+    background: none;
+    padding: 0;
+    outline: none;
+    font: inherit;
+    text-align: left;
+    width:70%;
+  } 
+  
+  mat-form-field.mat-input-infix .mat-form-field-infix{
+    width:300px;
+  }
+  
+  span {
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+  
+  :host.floating span {
+    opacity: 0.5;
+  }
+  
+
+  .datepicker-date{
+    width: 100%;
+  }
+  .datepicker-mm{
+    width: 20%;
+  }
+  .datepicker-dd{
+    width: 20%;
+  }

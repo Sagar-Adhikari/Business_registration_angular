@@ -1,0 +1,109 @@
+<div fxLayout="row" fxLayoutAlign="space-between none" class="page-header">
+    <span style="margin: 5px 0px 0px 10px;">{{ pageTitle }}</span>
+    <button
+      mat-raised-button
+      mat-icon-button
+      class="pullright"
+      matTooltip="Close"
+      (click)="closeButtonClick()"
+      id="close"
+      matTooltipPosition="left"
+      matTooltipShowDelay="300"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="body-container">
+    <form
+      style="margin-left: 20px;margin-right: 20px"
+      #form="ngForm"
+      [formGroup]="apeRegisterForm"
+      (ngSubmit)="onSubmit(apeRegisterForm)"
+    >
+      <div class="flex-row">
+        <div class="flex-col">
+          <mat-form-field class="flex-row" style="width: 220px">
+            <mat-select placeholder="WardNo" formControlName="wardNo">
+              <mat-option *ngFor="let item of wardList" [value]="item.id">
+                {{ item.wardNo }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="flex-row">
+            <input
+              #title
+              matInput
+              placeholder="Title"
+              formControlName="title"
+              autocomplete="off"
+            />
+          </mat-form-field>
+  
+          <div>
+            <quill-editor
+              [styles]="editorStyle"
+              [theme]="'snow'"
+              [modules]="config"
+              (focus)="onEditorFocused($event)"
+              formControlName="description"
+            ></quill-editor>
+          </div>
+  
+          <!-- <div>
+            <quill-editor
+              [styles]="editorStyle"
+              [modules]="config"
+              (focus)="onEditorFocused($event)"
+              (onEditorCreated)="setFocus($event)"
+              formControlName="description"
+            ></quill-editor>
+            <span *ngIf="apeRegisterForm.get('description').value != null"></span>
+          </div> -->
+        </div>
+      </div>
+  
+      <div
+        class="flex-row"
+        style="margin-bottom: 30px; width: 100%;text-align:center"
+      >
+        <div class="flex-row" style="margin-bottom: 30px">
+          <button
+            type="button"
+            *ngIf="!id"
+            style="width: 100%"
+            mat-raised-button
+            color="primary"
+            (click)="onSubmit(apeRegisterForm)"
+          >
+            सेभ
+          </button>
+          <div class="flex-row" style="margin-bottom: 30px">
+            <button
+              type="button"
+              *ngIf="id"
+              style="width: 100%"
+              mat-raised-button
+              color="primary"
+              (click)="onSubmit(apeRegisterForm)"
+            >
+              Update
+            </button>
+          </div>
+          <div class="flex-row" style="margin-bottom: 30px">
+            <button
+              style="width: 100%"
+              *ngIf="id"
+              id="delete"
+              mat-raised-button
+              color="primary"
+              (click)="onDelete()"
+            >
+              डिलिट
+            </button>
+          </div>
+        </div>
+        <div></div>
+      </div>
+    </form>
+  </div>
+  

@@ -1,0 +1,34 @@
+<head> </head>
+
+<body>
+    <script>
+        const ipcRenderer = require("electron").ipcRenderer;
+
+        ipcRenderer.on("printPDF", (event, content) => {
+            document.body.innerHTML = content;
+
+            ipcRenderer.send("readyToPrintPDF");
+        });
+
+        ipcRenderer.on("print", (event, content) => {
+            document.body.innerHTML = content;
+
+            ipcRenderer.send("readyToPrint");
+        });
+    </script>
+    <!-- <style>
+        .wrap {
+            height: 35px;
+            max-height: 35px;            
+            display: flex;
+            overflow: hidden;            
+        }
+
+        .wrap span {
+            align-self: flex-end;
+        }
+        span {
+            white-space: pre;
+        }
+    </style> -->
+</body>

@@ -1,0 +1,36 @@
+<section [class]="className">
+    <div *ngIf="dateRange==true" fxLayoutAlign="space-between center">
+        <button *ngIf="isFront==false" mat-button mat-icon-button color="primary" tabindex="-1"
+            (click)="previousPanel()">
+            <mat-icon class="mat-14">chevron_left</mat-icon>
+        </button>
+        <div style="padding-left:16px; padding-right:16px;">
+            <label class="text-bold">{{fromToTitle}}</label>
+        </div>
+        <button *ngIf="isFront==true" mat-button mat-icon-button color="primary" tabindex="-1"
+            (click)="nextPanel()">
+            <mat-icon class="mat-14">chevron_right</mat-icon>
+        </button>
+    </div>
+
+    <div #card class="card" [ngClass]="isFront===true? 'card' : 'card flipped'">
+        <div class="front">
+            <dp-calendar [ngClass]="isFront===true? 'active' : 'none-active'" #cal1 [dateRange]="dateRange"
+                (DateTimeChanged)="datetimeChangedFrom($event)">
+            </dp-calendar>
+        </div>
+        <div class="back">
+            <dp-calendar [ngClass]="isFront===true? 'none-active' : 'active'" #cal2 [dateRange]="dateRange"
+                (DateTimeChanged)="datetimeChangedTo($event)">
+            </dp-calendar>
+        </div>
+
+    </div>
+    <div *ngIf="withTime===true" class="footer-with-time" fxLayout="column" fxLayoutAlign="space-between center"
+        style.padding="20px">
+        <div fxFlexAlign="end">
+            <button mat-button (click)="revert()">{{lang==0?'Cancel':'रद्द'}}</button>
+            <button mat-button (click)="submit()">{{lang==0?'Ok':'ठिक'}}</button>
+        </div>
+    </div>
+</section>

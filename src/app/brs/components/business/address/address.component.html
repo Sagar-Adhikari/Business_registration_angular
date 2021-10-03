@@ -1,0 +1,41 @@
+<fieldset>
+  <legend>{{addressType}}</legend>
+  <div [formGroup]="address" class="flex-row">
+    <mat-form-field>
+      <mat-select placeholder="प्रदेश" formControlName="state" (selectionChange)="stateChanged()">
+        <mat-option *ngFor="let item of stateList" [value]="item.id">
+          {{item.stateName}}
+        </mat-option>
+      </mat-select>
+      <mat-error>प्रद्रेश छान्नुहाेस।</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="जिल्ला" formControlName="district" (selectionChange)="districtChanged()">
+        <mat-option *ngFor="let item of districtList" [value]="item.id">
+          {{item.districtName}}
+        </mat-option>
+      </mat-select>
+      <mat-error>जिल्ला छान्नुहाेस।</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-select placeholder="न.पा./गा.बि.स." formControlName="city">
+        <mat-option *ngFor="let item of cityList" [value]="item.id">
+          {{item.city}}
+        </mat-option>
+      </mat-select>
+      <mat-error>न.पा./गा. बि. स. छान्नुहाेस ।</mat-error>
+    </mat-form-field>
+   
+    <mat-form-field>
+      <input type="number" matInput placeholder="वडा नं." formControlName="wardNo" autocomplete="off" >
+      <mat-error>वडा नं. भर्नुहाेस ।</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <input type="text" matInput placeholder="घर नं." formControlName="houseNo" autocomplete="off">
+      <mat-error>घर नं. भर्नुहाेस ।</mat-error>
+    </mat-form-field>
+  </div>
+</fieldset>

@@ -1,0 +1,70 @@
+<div fxLayout="column">
+    <div fxLayout="row" class="dp-title" fxLayoutAlign="space-between center">
+        <div flex>
+            <button #yearmonth mat-button color="primary" (click)="titleClick()">
+                {{title}}
+            </button>
+        </div>
+        <button mat-button mat-icon-button color="primary" (click)="dateTypeToggle()" style="width:30px; height:30px; line-height:30px;"
+            [disabled]="errorInBS">
+            {{dateTypeTitle}}
+        </button>
+
+        <div class="year-month">
+            <button mat-button mat-icon-button color="primary" (click)="upDown('+')" style="width:30px; height:30px; line-height:30px;">
+                <mat-icon class="mat-14">arrow_drop_up</mat-icon>
+            </button>
+            <button mat-button mat-icon-button color="primary" (click)="upDown('-')" style="width:30px; height:30px; line-height:30px;">
+                <mat-icon>arrow_drop_down</mat-icon>
+            </button>
+        </div>
+    </div>
+    <!-- Calendar Body -->
+    <div fxLayout="column">
+        <div style="padding-bottom:1px">
+            <mat-grid-list *ngIf="currentView==1" [cols]="cols" rowHeight="25px">
+                <mat-grid-tile *ngFor="let data of titles" [colspan]="data.cols" [rowspan]="data.rows"
+                    [style.background]="data.color" style="color:white;">
+                    <span class="text-label">{{data.text}}</span>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </div>
+        <mat-grid-list *ngIf="currentView==1" [cols]="cols" [rowHeight]="rowHeight">
+            <mat-grid-tile *ngFor="let data of datas" [colspan]="data.cols" [rowspan]="data.rows" [style.background]="data.color">
+                <button *ngIf="data.id!=0" mat-fab-button mat-icon-button mat-raised-button [disabled]="data.disable"
+                    color="" [style.width]="currentView===1 ? '25px': '45px'" [style.height]="currentView===1 ? '25px': '45px'"
+                    [style.line-height]="currentView===1 ? '25px': '45px'" (click)="ItemClicked(data.id)">
+                    {{data.text}}
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
+        <mat-grid-list *ngIf="currentView!=1" [cols]="cols" [rowHeight]="rowHeight">
+            <mat-grid-tile *ngFor="let data of datas" [colspan]="data.cols" [rowspan]="data.rows" [style.background]="data.color">
+                <button *ngIf="data.id!=0" mat-button [disabled]="data.disable" color="" (click)="ItemClicked(data.id)">
+                    {{data.text}}
+                </button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </div>
+    <!-- Time body -->
+    <div fxLayout="row" *ngIf="withTime && currentView==1" fxLayoutAlign="center center" style="margin-right:10px;margin-left:10px;">
+        <div fxLayout="column">
+            <mat-slider thumbLabel [max]="hourMax" [min]="hourMin" [step]="hourStep" [thumb-label]="thumbLabel" color="primary"
+                [tick-interval]="tickInterval" [(ngModel)]="hourValue" [value]="hourValue" (input)="onInputChange($event,'h')">
+            </mat-slider>
+            <div fxLayout="row" fxLayoutAlign="center center" style="margin-top:-15px;">
+                <span class="text-label">Hour:</span>
+                <span class="text-label">{{hourValue}}</span>
+            </div>
+        </div>
+        <div fxLayout="column">
+            <mat-slider thumbLabel [max]="minuteMax" [min]="minuteMin" [step]="minuteStep" [thumb-label]="thumbLabel"
+                [tick-interval]="tickInterval" color="primary" [(ngModel)]="minuteValue" [value]="minuteValue" (input)="onInputChange($event,'m')">
+            </mat-slider>
+            <div fxLayout="row" fxLayoutAlign="center center" style="margin-top:-15px;">
+                <span class="text-label">Minute:</span>
+                <span class="text-label">{{minuteValue}}</span>
+            </div>
+        </div>
+    </div>
+</div>

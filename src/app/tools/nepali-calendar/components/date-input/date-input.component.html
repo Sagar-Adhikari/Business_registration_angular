@@ -1,0 +1,7 @@
+<div>
+  <input #date matInput mask={{mask}} dropSpecialCharacters="false" [disabled]="disabled" placeholder={{controlPlaceHolder}}
+    [patterns]="patterns" class="datepicker-date" maxlength={{maxLength}} minlength={{maxLength}} value="{{myValue}}"
+    (change)="onChange($event)" (paste)="onChange($event)" (keyup)="onChange($event)"
+    (blur)="onBlur()" autocomplete="off" (focus)="focus(1)"
+    >
+</div>

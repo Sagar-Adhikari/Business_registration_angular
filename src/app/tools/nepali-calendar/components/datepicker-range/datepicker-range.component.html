@@ -1,0 +1,45 @@
+<div [matMenuTriggerFor]="calendarPopUp" #menu style="background-color: transparent; width: 0px;"></div>
+<mat-form-field fxFlex class="full-width" floatLabel="auto">
+    <mat-label>{{placeHolder}}</mat-label>
+    <date-input-range #dateinput [placeholder]="placeHolder" [dateFormat]="dateFormat" [withTime]="withTime"
+        [value]="myValue" (onDateChanged)="dateChange($event)" [required]="required" [disabled]="disabled"
+        [errorState]="errorState" (controlGotFocus)="focus()"></date-input-range>
+    <button mat-button type="button" [matTooltip]="clearTooltip" tabindex="-1" *ngIf="myValue && !disabled" matSuffix
+        mat-icon-button aria-label="Clear" (click)="clearText()">
+        <mat-icon>close</mat-icon>
+    </button>
+    <button mat-button type="button" tabindex="-1" [matTooltip]="changeDateTooltip" matTooltipPosition="above" matSuffix
+        mat-icon-button aria-label="Calendar" (click)="changeDateType()">
+        <mat-icon>repeat</mat-icon>
+
+    </button>
+    <button mat-button type="button" tabindex="-1" [matTooltip]="showCalendarTooltip" matSuffix mat-icon-button
+        aria-label="Calendar" (click)="showPicker()">
+        <mat-icon>date_range</mat-icon>
+    </button>
+    <mat-hint *ngIf="showHint">
+        {{dateType===1? caption.AD[language]+', ': caption.BS[language] +', '}}
+        {{dateFormat}} {{withTime==true? 'hh:mm':''}}
+        /
+        {{dateFormat}} {{withTime==true? 'hh:mm':''}}
+        <!-- Date Type: 
+        <strong>{{option.dateType===1? '  AD, ': '  BS, '}}</strong>
+        Date Format:
+        <strong>{{dateFormat}} {{option.withTime==true? 'hh:mm':''}}</strong> -->
+    </mat-hint>
+    <mat-error>
+        <strong>{{errorMessage}}</strong>.</mat-error>
+</mat-form-field>
+<!-- {{fromDate}}{{toDate}} -->
+
+<mat-menu #calendarPopUp="matMenu" class="popup" x-position="before" yPosition="below" [overlapTrigger]="false"
+    (close)="onMenuClosed()">
+    <div (click)="$event.stopPropagation()">
+        <!-- <app-calendar-popup [dateType]="dateType" [dateFormatAD]="dateFormatAD" [dateFormatBS]="dateFormatBS"
+            [withTime]="withTime" [minDate]="minDate" [maxDate]="maxDate" [closeOnClick]="closeOnClick" [dateRange]="dateRange"
+            [currentDate]="currentDate" (DateTimeChanged)="dateChangedFromPopUp($event)"></app-calendar-popup> -->
+
+        <app-calendar-popup [dateRange]="dateRange" #calPopUp (DateTimeChanged)="dateChangedFromPopUp($event)">
+        </app-calendar-popup>
+    </div>
+</mat-menu>

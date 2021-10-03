@@ -1,0 +1,24 @@
+# schema: http://localhost:4000/graphql
+# overwrite: true
+# generates:
+#   ./src/graphql/types.d.ts:
+#     plugins:
+#       - typescript-common
+#       - typescript-server
+#       - typescript-resolvers
+#   ./schema.json:
+#      plugins:
+#        - introspection
+
+overwrite: true
+schema: schema.graphql
+documents: src/app/graphql/*.graphql
+generates:
+  ./src/app/generated/graphql.ts:
+    plugins:
+      - typescript-common
+      - typescript-client
+      - typescript-apollo-angular
+  ./schema.json:
+    plugins:
+      - introspection

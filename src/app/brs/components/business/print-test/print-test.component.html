@@ -1,0 +1,116 @@
+<div fxLayout="row" fxLayoutAlign="space-between none" class="page-header">
+  <button *ngIf="!isElectronMode" mat-button printSectionId="print-section" type="button" ngxPrint style="width:100px;" color="primary">
+    <mat-icon>
+      print
+    </mat-icon>
+  </button>
+  <button *ngIf="isElectronMode"  mat-button (click)="print('print-section')" type="button" style="width:100px;" color="primary">
+    <mat-icon>
+      print
+    </mat-icon>
+  </button>
+
+  <!-- <button (click)="print('print-section')" type="button">print</button> -->
+  <app-alert id="markAsPrinted" message="प्रिन्ट भयाे भनेर मार्क गर्ने हाे?" caption="प्रिन्ट भयाे"
+  (success)="markAsPrinted()" style="margin-top: -13px;"></app-alert>
+  <button mat-raised-button mat-icon-button class="pullright" matTooltip="Close" (click)="closeButtonClick()" id="close"
+    matTooltipPosition="left" matTooltipShowDelay="300">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+ 
+
+
+<div class="body-container">
+  <!-- <div style="margin: 5px 20px 0px 0px;">
+    <button mat-raised-button printSectionId="print-section" type="button" ngxPrint style="width:100px;"
+      color="primary">print</button>
+    <button (click)="print('print-section')" type="button">print</button>
+  </div> -->
+  <div *ngIf="certificate" class="my_class">
+    <div id="print-section">
+      <div class="sheet" style="font-size: 14px;
+      font-family: 'PCS NEPALI';
+      width: 210mm; 
+      height: 297mm;
+      border: 1px solid rgb(255, 255, 255);
+      margin:0px;
+      page-break-after: always;
+      overflow: hidden;">
+        <div style="margin: 0px 0px 0px 700px; height:5mm;">
+          .
+        </div>
+        <div class="fiscal-year wrap" style="margin:51mm 0px 0px 45mm;
+        height: 9mm;
+        max-height: 9mm;
+        display: flex;
+        overflow: hidden;">
+          <span style="align-self: flex-end;">{{certificate.fYear}}</span>
+        </div>
+        <div class="redg-no wrap" style="margin: 0mm 0px 0px 40mm;
+        height: 7mm;
+        max-height: 7mm;
+        display: flex;
+        overflow: hidden;">
+          <span style="align-self: flex-end;"> {{prefix}}{{certificate.redgNo}}</span>
+        </div>
+        <div class="owner-name1 wrap" style="margin: 21mm 0px 0px 30mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;">{{certificate.member.nameInNepali}}</span>
+        </div>
+        <div class="certificate-date wrap" style="margin: -9mm 0px 0px 160mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;" > {{printedOn}} </span>
+        </div>
+        <div class="ward-no wrap" style="margin: 0px 0px 0px 75mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.houseOwners[0].wardNo}} </span>
+        </div>
+
+        <div class="business-name wrap" style=" margin: 50mm 0px 0px 60mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.businessNameEnglish}} </span>
+        </div>
+        <div class="business-address wrap" style="margin: 0mm 0px 0px 70mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.houseOwners[0].municipality.municipalityName}}</span>
+        </div>
+        <div class="total-capital wrap" style="margin: 0mm 0px 0px 65mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.totalCapital}}</span>
+        </div>
+        <div class="working-capital wrap" style="margin:2mm 0mm 0px 72mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.workingCapital}}</span>
+        </div>
+        <div class="current-capital wrap" style="margin:-9mm 0px 0px 150mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;">{{certificate.currentCapital}}</span>
+        </div>
+        <div class="owner-name2 wrap" style="  margin:10mm 0px 0px 55mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.member.nameInNepali}}</span>
+        </div>
+        <div class="permanent-address wrap" style=" margin:-10mm 0px 0px 150mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;">{{certificate.member.memberAddresses[0].municipality.municipalityName}}</span>
+        </div>
+        <div class="temporary-address wrap" style="margin:3mm 0mm 0mm 62mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.member.memberAddresses[1].municipality.municipalityName}}</span>
+        </div>
+        <div class="father-name wrap" style="   margin:-9mm 0px 0px 144mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.member.fathersName}}</span>
+        </div>
+
+        <div class="grand-father-name wrap" style="margin:0mm 0mm 0mm 66mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.member.grandFathersName}}</span>
+        </div>
+        <div class="mother-name wrap" style=" margin:-9mm 0px 0px 144mm;height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span style="align-self: flex-end;"> {{certificate.member.mothersName}}</span>
+        </div>
+
+        <div class="issued-person-name wrap"
+          style=" margin: 32mm 0px 0px 128mm; height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span> {{certificate.issuedPersonName}}</span>
+        </div>
+        <div class="issued-date wrap" style=" margin: 10mm 0px 0px 125mm; height:9mm; max-height: 9mm; display: flex; overflow: hidden;">
+          <span>{{printedOn}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<!-- ///////////////////////////// -->

@@ -1,0 +1,22 @@
+:host {
+    display: flex;
+  }
+ 
+.dp-title{
+    min-width: 275px;
+    display: flex;
+    
+}
+.text-label{
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 14px;         
+}
+.text-bold{
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 14px;  
+    font-weight: bold;
+}
+
+.mat-menu-content{
+    padding: 0px !important;
+}

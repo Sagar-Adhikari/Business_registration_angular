@@ -1,0 +1,18 @@
+<div fxLayout="row" fxLayoutAlign="space-between none" class="page-header">
+    <button mat-raised-button mat-icon-button mat-card-avatar id="back"
+      matTooltip="Back" matTooltipPosition="above"
+      matTooltipShowDelay="300" [disabled]="parent.parentId==null" (click)="onButtonClicked({event:'back', parentId: parent.parentId})">
+    </button>
+    <div class="title" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="none start" fxLayoutAlign.gt-xs="start center" 
+      matTooltip="Parameter Group [{{parent.name}}]" matTooltipPosition="below" matTooltipShowDelay="300">
+      <span ngClass.xs="parent-label-xs" ngClass.gt-xs="parent-label"> Available Parameter (User) under: </span>
+      <span ngClass.xs="parent-name-xs" ngClass.gt-xs="parent-name"><strong>{{parent.name}}</strong></span>
+    </div>
+    <button  mat-raised-button mat-icon-button class="pullright" id="new"
+      matTooltip="Create New" (click)="onButtonClicked({event:'new', parentId: parent.id})"
+      matTooltipPosition="left" matTooltipShowDelay="300">
+      <mat-icon>add</mat-icon>
+    </button>
+</div>
+
+<app-param-card [params]="childs" (buttonClicked)="onButtonClicked($event)"></app-param-card>

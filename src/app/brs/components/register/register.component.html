@@ -1,0 +1,599 @@
+<div fxLayout="row" fxLayoutAlign="space-between none" class="page-header">
+  <span style="margin: 5px 0px 0px 10px;">{{pageTitle}}</span>
+  <button mat-raised-button mat-icon-button matTooltip="Close" (click)="closeButtonClick(registerFormGroup, stepper)"
+    id="close" matTooltipPosition="left" matTooltipShowDelay="300">
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+
+<form [formGroup]="formGroup" class="body-container" #registerFormGroup (ngSubmit)="onSubmit(formGroup)">
+  <mat-horizontal-stepper [linear]="true" #stepper formArrayName="formArray">
+    <mat-step formGroupName="0" [stepControl]="formArray?.get([0])">
+      <ng-template matStepLabel>ब्यवसायीकाे विवरण</ng-template>
+      <div class="flex-row">
+        <mat-form-field>
+          <mat-label>नागरीकता नं.</mat-label>
+          <input matInput formControlName="citizenShipNo" (ngModelChange)="this.citizenShipNoValueChanged.next($event)"
+            autocomplete="off">
+          <mat-hint>नागरीकता नं.</mat-hint>
+          <mat-error>नागरीकता नं. अावस्यक छ।</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="नागरीकता जारी गर्ने जिल्ला" formControlName="citizenShipDistrictId"
+            (selectionChange)="citizenDistrictChanged($event)">
+            <mat-option *ngFor="let item of districtListForCitizenship" [value]="item.id">
+              {{item.districtName}}
+            </mat-option>
+          </mat-select>
+          <mat-error>नागरीकता जारी गर्ने जिल्ला छान्नुहाेस ।</mat-error>
+          <mat-hint>नागरीकता जारी गर्ने जिल्ला छान्नुहाेस ।</mat-hint>
+        </mat-form-field>
+
+        <datepicker #dpicker [option]="dpOptionCitizen" formControlName="citizenShipIssueDate"></datepicker>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <mat-label>नाम (नेपालीमा)</mat-label>
+          <input matInput formControlName="nameInNepali" autocomplete="off">
+          <mat-hint>नेपालीमा नाम भर्नुहाेस।</mat-hint>
+          <mat-error>नेपालीमा नाम भर्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Name (In English)</mat-label>
+          <input matInput formControlName="nameInEnglish" autocomplete="off">
+          <mat-hint>अंग्रेजीमा नाम भर्नुहाेस।</mat-hint>
+          <mat-error>अंग्रेजीमा नाम भर्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>प्यान नं.</mat-label>
+          <input type="number" matInput formControlName="panNo" minlength="9" maxlength="9" autocomplete="off">
+          <mat-hint>प्यान नं. भर्नुहाेस छैन भने खाली छाेड्नुहाेस।</mat-hint>
+          <mat-error>९ वटा अंककाे प्यान नं. भर्नुहाेस।</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <mat-label>माेबाइल नं.</mat-label>
+          <input type="number" matInput formControlName="mobileNo" autocomplete="off">
+          <mat-hint>माेबाइल नं. भर्नुहाेस।</mat-hint>
+          <mat-error>१० वटा अंककाे माेबाइल नं. भर्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>फाेन नं.</mat-label>
+          <input matInput formControlName="phoneNo" autocomplete="off">
+          <mat-hint>फाेन नं. भर्नुहाेस।</mat-hint>
+          <mat-error>फाेन नं. भर्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>इमेल</mat-label>
+          <input matInput formControlName="email" autocomplete="off">
+          <mat-hint>इमेल भर्नुहाेस।</mat-hint>
+          <mat-error>इमेल भर्नुहाेस।</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <mat-label>बुबाकाे नाम</mat-label>
+          <input matInput formControlName="fathersName" autocomplete="off">
+          <mat-hint>ब्यवसायीकाे बुबाकाे नाम</mat-hint>
+          <mat-error>ब्यवसायीकाे बुबाकाे नाम भर्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>अामाकाे नाम</mat-label>
+          <input matInput formControlName="mothersName" autocomplete="off">
+          <mat-hint>ब्यवसायीकाे अामाकाे नाम भर्नुहाेस।</mat-hint>
+          <mat-error>ब्यवसायीकाे अामाकाे नाम भर्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>बाजेकाे नाम</mat-label>
+          <input matInput formControlName="grandFathersName" autocomplete="off">
+          <mat-hint>ब्यवसायीकाे बाजेकाे नाम भर्नुहाेस।</mat-hint>
+          <mat-error>ब्यवसायीकाे बाजेकाे नाम भर्नुहाेस।</mat-error>
+        </mat-form-field>
+      </div>
+      <legend>स्थाइ ठेगाना</legend>
+      <fieldset formGroupName="permanentAddress">
+        <div class="flex-row">
+          <mat-form-field>
+            <mat-select placeholder="प्रदेश" formControlName="stateId" (selectionChange)="stateChanged($event, 1)">
+              <mat-option *ngFor="let item of stateList" [value]="item.id">
+                {{item.stateName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>प्रद्रेश छान्नुहाेस।</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="जिल्ला" formControlName="districtId"
+              (selectionChange)="districtChanged($event, 1)">
+              <mat-option *ngFor="let item of districtListP" [value]="item.id">
+                {{item.districtName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>जिल्ला छान्नुहाेस।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="न.पा./गा.बि.स." formControlName="cityId"
+              (selectionChange)="cityChanged($event, 1)">
+              <mat-option *ngFor="let item of cityListP" [value]="item.id">
+                {{item.city}}
+              </mat-option>
+            </mat-select>
+            <mat-error>न.पा./गा. बि. स. छान्नुहाेस ।</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="flex-row">
+          <mat-form-field>
+            <input type="number" matInput placeholder="वडा नं." formControlName="wardNo" autocomplete="off"
+              (input)="wardChanged($event.target.value,1)">
+            <mat-error>वडा नं. भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="टाेल" formControlName="tole" autocomplete="off"
+              (input)="toleChanged($event.target.value,1)">
+            <mat-error>टाेल भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="घर नं." formControlName="houseNo" autocomplete="off"
+              (input)="houseNoChanged($event.target.value,1)">
+            <mat-error>घर नं. भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+        </div>
+      </fieldset>
+
+      <legend>अस्थाइ ठेगाना</legend>
+      <fieldset formGroupName="temporaryAddress">
+        <div class="flex-row">
+          <mat-form-field>
+            <mat-select placeholder="प्रदेश" formControlName="stateId" (selectionChange)="stateChanged($event, 2)">
+              <mat-option *ngFor="let item of stateList" [value]="item.id">
+                {{item.stateName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>प्रद्रेश छान्नुहाेस।</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="जिल्ला" formControlName="districtId"
+              (selectionChange)="districtChanged($event, 2)">
+              <mat-option *ngFor="let item of districtListT" [value]="item.id">
+                {{item.districtName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>जिल्ला छान्नुहाेस।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="न.पा./गा.बि.स." formControlName="cityId"
+              (selectionChange)="cityChanged($event, 2)">
+              <mat-option *ngFor="let item of cityListT" [value]="item.id">
+                {{item.city}}
+              </mat-option>
+            </mat-select>
+            <mat-error>न.पा./गा. बि. स. छान्नुहाेस ।</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="flex-row">
+          <mat-form-field>
+            <input type="number" matInput placeholder="वडा नं." formControlName="wardNo" autocomplete="off"
+              (input)="wardChanged($event.target.value,2)">
+            <mat-error>वडा नं. भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="टाेल" formControlName="tole" autocomplete="off"
+              (input)="toleChanged($event.target.value,2)">
+            <mat-error>टाेल भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="घर नं." formControlName="houseNo" autocomplete="off"
+              (input)="houseNoChanged($event.target.value,2)">
+            <mat-error>घर नं. भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+        </div>
+      </fieldset>
+      <div>
+        <button mat-raised-button type="button" color="primary" matStepperNext style="min-width: 100px;">Next</button>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="1" [stepControl]="formArray?.get([1])">
+      <ng-template matStepLabel>ब्यवसायको बिवरण</ng-template>
+      <div class="flex-row" *ngIf="!redgId">
+        <mat-checkbox formControlName="isOld" (change)="newOrOld()"> पुरानाे दर्ता हाे?</mat-checkbox>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <mat-select placeholder="कम्पनीकाे प्रकार" formControlName="businessClassId"
+            (selectionChange)="businessTypeChanged(1)">
+            <mat-option *ngFor="let item of businessClassAnnex.rateList" [value]="item.id">
+              {{item.caption}}
+            </mat-option>
+          </mat-select>
+          <mat-error>कम्पनीकाे प्रकार छान्नुहाेस ।</mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="businessClassAnnex.hasChild">
+          <mat-select placeholder="ब्यवसायकाे प्रकार" formControlName="businessTypeId"
+            (selectionChange)="businessTypeChanged(2)">
+            <mat-option *ngFor="let item of businessTypeAnnex.rateList" [value]="item.id">
+              {{item.caption}}
+            </mat-option>
+          </mat-select>
+          <mat-error>ब्यवसायकाे प्रकार छान्नुहाेस ।</mat-error>
+          <!-- <mat-hint>ब्यवसायकाे प्रकार छान्नुहाेस ।</mat-hint> -->
+        </mat-form-field>
+
+        <mat-form-field *ngIf="hasBusinessSize">
+          <mat-select placeholder="ब्यवसायको आकार" formControlName="businessSizeId"
+            (selectionChange)="businessTypeChanged(3)">
+            <mat-option *ngFor="let item of businessSizeAnnex.rateList" [value]="item.id">
+              {{item.caption}}
+            </mat-option>
+          </mat-select>
+          <mat-error>ब्यवसायको आकार छान्नुहाेस ।</mat-error>
+          <!-- <mat-hint>ब्यवसायको आकार छान्नुहाेस ।</mat-hint> -->
+        </mat-form-field>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <input #businessName matInput placeholder="फर्म वा कम्पनीकाे नाम नेपालीमा" formControlName="businessName"
+            autocomplete="off">
+          <mat-error>फर्म वा कम्पनीकाे नेपालीमा नाम भर्नुहाेस ।</mat-error>
+          <mat-hint>फर्म वा कम्पनीकाे नेपालीमा नाम भर्नुहाेस ।</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input #businessName matInput placeholder="फर्म वा कम्पनीकाे नाम अंग्रेजीमा"
+            formControlName="businessNameEnglish" autocomplete="off">
+          <mat-error>फर्म वा कम्पनीकाे अंग्रेजीमा नाम भर्नुहाेस ।</mat-error>
+          <mat-hint>फर्म वा कम्पनीकाे अंग्रेजीमा नाम भर्नुहाेस ।</mat-hint>
+        </mat-form-field>
+
+      </div>
+      <div class="flex-row">
+        <datepicker #dpicker [option]="dpOption" formControlName="redgDate"></datepicker>
+        <mat-form-field class="number">
+          <input type="number" matInput placeholder="लगानी चालु पूजी रकम" formControlName="currentCapital"
+            autocomplete="off" (input)="onFundChangeCurrent($event.target.value)">
+          <mat-error>लगानी चालु पूजी रकम भर्नुहाेस ।</mat-error>
+          <!-- <mat-hint>लगानी पूजी रकम भर्नुहाेस ।</mat-hint> -->
+        </mat-form-field>
+        <mat-form-field class="number">
+          <input type="number" matInput placeholder="लगानी स्थिर पूजी रकम" formControlName="workingCapital"
+            autocomplete="off" (input)="onFundChangeWorking($event.target.value)">
+          <mat-error>लगानी स्थिर पूजी रकम भर्नुहाेस ।</mat-error>
+          <!-- <mat-hint>लगानी पूजी रकम भर्नुहाेस ।</mat-hint> -->
+        </mat-form-field>
+        <mat-form-field class="number">
+          <input type="number" matInput placeholder="शुल्क" formControlName="rate" autocomplete="off" readonly>
+          <mat-error>रेट डाटावेसमा पाइएन ।</mat-error>
+          <mat-hint>सेटप अनुसारको रेट आफै आउछ ।</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <mat-label>प्यान/भ्याट नं.</mat-label>
+          <input type="number" matInput formControlName="panNo" minlength="9" maxlength="9" autocomplete="off">
+          <mat-hint>प्यान/भ्याट नं. भर्नुहाेस छैन भने खाली छाेड्नुहाेस।</mat-hint>
+          <mat-error>९ वटा अंककाे प्यान/भ्याट नं. भर्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field class="number">
+          <input type="number" matInput placeholder="बार्षिक क्षमता" formControlName="turnOver" autocomplete="off">
+          <mat-error>बार्षिक उत्पादन क्षमता भर्नुहाेस ।</mat-error>
+          <mat-hint>बार्षिक उत्पादन क्षमता भर्नुहाेस ।</mat-hint>
+          <!-- <mat-hint>लगानी पूजी रकम भर्नुहाेस ।</mat-hint> -->
+        </mat-form-field>
+        <mat-form-field class="number">
+          <input type="number" matInput placeholder="प्रत्यक्ष राेजगारी" formControlName="employmentDirect"
+            autocomplete="off">
+          <mat-error>कतिलाइ प्रत्यक्ष राेजगारी दिएकाे छ?</mat-error>
+          <mat-hint>कतिलाइ प्रत्यक्ष राेजगारी दिएकाे छ?</mat-hint>
+          <!-- <mat-hint>लगानी पूजी रकम भर्नुहाेस ।</mat-hint> -->
+        </mat-form-field>
+        <mat-form-field class="number">
+          <input type="number" matInput placeholder="अप्रत्यक्ष राेजगारी" formControlName="employmentIndirect"
+            autocomplete="off">
+          <mat-error>अप्रत्यक्ष राेजगारी कति जनाले पाएका छन्?</mat-error>
+          <mat-hint>अप्रत्यक्ष राेजगारी कति जनाले पाएका छन्?</mat-hint>
+          <!-- <mat-hint>लगानी पूजी रकम भर्नुहाेस ।</mat-hint> -->
+        </mat-form-field>
+      </div>
+
+      <legend>घर धनीकाे विवरण तथा कार्यालयकाे ठेगाना</legend>
+      <fieldset formGroupName="houseOwner">
+        <div class="flex-row">
+          <mat-form-field>
+            <input matInput placeholder="घर/जग्गा धनीकाे नाम" formControlName="houseOwnerName" autocomplete="off">
+            <mat-error>घर/जग्गा धनीकाे नाम भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+          <mat-form-field class="number">
+            <input type="number" matInput type="number" placeholder="मासिक भाडा" formControlName="monthlyRent"
+              autocomplete="off">
+            <mat-error>मासिक भाडा भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="भाडा बुझाउने समय" formControlName="rentFrequency">
+              <mat-option *ngFor="let item of paymentMode" [value]="item.text">
+                {{item.text}}
+              </mat-option>
+            </mat-select>
+            <mat-error>भाडा बुझाउने समय ।</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="flex-row">
+          <mat-form-field>
+            <mat-select placeholder="प्रदेश" formControlName="stateId" (selectionChange)="stateChanged($event, 3)">
+              <mat-option *ngFor="let item of stateList" [value]="item.id">
+                {{item.stateName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>प्रद्रेश छान्नुहाेस।</mat-error>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-select placeholder="जिल्ला" formControlName="districtId"
+              (selectionChange)="districtChanged($event, 3)">
+              <mat-option *ngFor="let item of districtListH" [value]="item.id">
+                {{item.districtName}}
+              </mat-option>
+            </mat-select>
+            <mat-error>जिल्ला छान्नुहाेस।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-select placeholder="न.पा./गा.बि.स." formControlName="cityId">
+              <mat-option *ngFor="let item of cityListH" [value]="item.id">
+                {{item.city}}
+              </mat-option>
+            </mat-select>
+            <mat-error>न.पा./गा. बि. स. छान्नुहाेस ।</mat-error>
+          </mat-form-field>
+        </div>
+        <div class="flex-row">
+          <mat-form-field>
+            <input type="number" matInput placeholder="वडा नं." formControlName="wardNo" autocomplete="off">
+            <mat-error>वडा नं. भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="टाेल" formControlName="tole" autocomplete="off">
+            <mat-error>टाेल भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="बाटाेकाे नाम" formControlName="street" autocomplete="off">
+            <mat-error>बाटाेकाे नाम भर्नुहाेस।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field>
+            <input type="text" matInput placeholder="घर नं." formControlName="houseNo" autocomplete="off">
+            <mat-error>घर नं. भर्नुहाेस ।</mat-error>
+          </mat-form-field>
+        </div>
+      </fieldset>
+      <legend>अन्य निकायमा दर्ता भएकाे छ भने</legend>
+      <fieldset formGroupName="otherRegistration">
+        <div class="flex-row">
+          <mat-form-field>
+            <input type="text" matInput placeholder="निकाय" formControlName="otherRedgOffice" autocomplete="off">
+            <mat-error>अन्य निकायकाे नाम भर्नुहाेस ।</mat-error>
+            <mat-hint>अन्य निकायकाे नाम भर्नुहाेस ।</mat-hint>
+          </mat-form-field>
+          <mat-form-field>
+            <input type="text" matInput placeholder="दर्ता नं" formControlName="otherRedgNo" autocomplete="off">
+            <mat-error>अन्य निकायकाे दर्ता नं भर्नुहाेस ।</mat-error>
+            <mat-hint>अन्य निकायकाे दर्ता नं भर्नुहाेस ।</mat-hint>
+
+          </mat-form-field>
+          <datepicker [option]="dpOptionOtherRedg" formControlName="redgDate"></datepicker>
+        </div>
+      </fieldset>
+      <div class="flex-row">
+        <mat-form-field>
+          <input matInput placeholder="अन्य बिवरण" formControlName="remarks" autocomplete="off">
+          <mat-error>अन्य बिवरण ५०० अक्षर सम्मकाे</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button type="button" color="primary" matStepperPrevious
+          style="min-width: 100px;">Back</button>
+        <button mat-raised-button type="button" color="primary" matStepperNext style="min-width: 100px;">Next</button>
+      </div>
+    </mat-step>
+    <!-- <mat-step formGroupName="4" [stepControl]="formArray?.get([4])">
+      <ng-template matStepLabel>House Owner Details</ng-template>
+      <div class="flex-row">
+        <mat-form-field>
+          <input matInput placeholder="घर/जग्गा धनीकाे नाम" formControlName="houseOwnerName" autocomplete="off">
+          <mat-error>घर/जग्गा धनीकाे नाम भर्नुहाेस ।</mat-error>
+        </mat-form-field>
+        <mat-form-field class="number">
+          <input type="number" matInput type="number" placeholder="मासिक भाडा" formControlName="monthlyRent"
+            autocomplete="off">
+          <mat-error>मासिक भाडा भर्नुहाेस ।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="भाडा बुझाउने समय" formControlName="rentFrequency">
+            <mat-option *ngFor="let item of paymentMode" [value]="item.text">
+              {{item.text}}
+            </mat-option>
+          </mat-select>
+          <mat-error>भाडा बुझाउने समय ।</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <mat-select placeholder="प्रदेश" formControlName="stateId" (selectionChange)="stateChanged($event, 3)">
+            <mat-option *ngFor="let item of stateList" [value]="item.id">
+              {{item.stateName}}
+            </mat-option>
+          </mat-select>
+          <mat-error>प्रद्रेश छान्नुहाेस।</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="जिल्ला" formControlName="districtId" (selectionChange)="districtChanged($event, 3)">
+            <mat-option *ngFor="let item of districtListH" [value]="item.id">
+              {{item.districtName}}
+            </mat-option>
+          </mat-select>
+          <mat-error>जिल्ला छान्नुहाेस।</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-select placeholder="न.पा./गा.बि.स." formControlName="cityId">
+            <mat-option *ngFor="let item of cityListH" [value]="item.id">
+              {{item.city}}
+            </mat-option>
+          </mat-select>
+          <mat-error>न.पा./गा. बि. स. छान्नुहाेस ।</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="flex-row">
+        <mat-form-field>
+          <input type="number" matInput placeholder="वडा नं." formControlName="wardNo" autocomplete="off">
+          <mat-error>वडा नं. भर्नुहाेस ।</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" matInput placeholder="टाेल" formControlName="tole" autocomplete="off">
+          <mat-error>टाेल भर्नुहाेस ।</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <input type="text" matInput placeholder="घर नं." formControlName="houseNo" autocomplete="off">
+          <mat-error>घर नं. भर्नुहाेस ।</mat-error>
+        </mat-form-field>
+      </div>
+      <div>
+        <button mat-raised-button type="button" color="primary" matStepperPrevious
+          style="min-width: 100px;">Back</button>
+        <button mat-raised-button type="button" color="primary" (click)="goToMap(stepper)" style="min-width: 100px;">Next</button>
+      </div>
+    </mat-step> -->
+    <mat-step>
+      <ng-template matStepLabel>नक्सा तथा फाेटाे</ng-template>
+      <div class="flex-row">
+        <div class="map" leaflet (leafletMapReady)="onMapReady($event)" [leafletOptions]="options">
+          <!-- <div *ngFor="let l of markers" [leafletLayer]="l"></div> -->
+        </div>
+        <div class="flex-col">
+          <!-- <div class="flex-row"> -->
+          <!-- <div class="flex-col"> -->
+          <input #fileInput type="file" name="file" accept="image/*" style="display:none;"
+            (change)="onFileSelected($event)">
+          <div class="img-container">
+            <div mat-card-avatar class="menu-image" [ngStyle]="{'background-image': 'url('+ imgUrl +')'}"></div>
+          </div>
+          <div fxLayout="column" fxLayoutAlign="space-between center">
+            <button *ngIf="formType=='add' || formType =='renew' || formType =='edit'" mat-raised-button type="button"
+              color="primary" (click)="fileInput.click()">फाेटाे छान्नुहाेस</button>
+          </div>
+          <!-- </div> -->
+          <!-- <div class="flex-col">
+            <input #fileInputCV type="file" name="file" accept="image/*" style="display:none;"
+              (change)="onCVSelected($event)">
+            <div class="img-container">
+              <div mat-card-avatar class="menu-image" [ngStyle]="{'background-image': 'url('+ cvUrl +')'}"></div>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="space-between center">
+              <button *ngIf="formType!='delete'" mat-raised-button type="button" color="primary"
+                (click)="fileInputCV.click()">नागरीकता छान्नुहाेस</button>
+            </div>
+          </div> -->
+        </div>
+        <!-- </div> -->
+      </div>
+
+      <div>
+        <button mat-raised-button type="button" color="primary" matStepperPrevious
+          style="min-width: 100px;">Back</button>
+        <button *ngIf="formType=='details' || formType =='verify' || isOld" mat-raised-button type="button"
+          color="primary" matStepperNext style="min-width: 100px;">Next</button>
+        <!-- <button *ngIf="!redgId" mat-raised-button color="primary" type="button" style="min-width: 100px;"
+          (click)="resetEntryForm(registerFormGroup, stepper)">रिसेट</button> -->
+        <button *ngIf="(formType=='add' || formType =='renew' || formType =='edit') && !isOld" id="save"
+          mat-raised-button color="primary" style="min-width: 100px;"> Save </button>
+        <button *ngIf="formType==='delete'" type="button" (click)="deleteBusiness()" mat-raised-button color="primary"
+          style="width: 100px;"> Delete </button>
+      </div>
+    </mat-step>
+    <mat-step formGroupName="2" [stepControl]="formArray?.get([2])"
+      *ngIf="isOld || formType=='details' || formType=='verify'">
+
+      <ng-template matStepLabel>कार्यालय प्रयाेजनकाे लागि</ng-template>
+      <fieldset>
+        <legend>कार्यालय प्रयाेजनकाे लागि</legend>
+
+        <div class="flex-row">
+          <datepicker [option]="dpOptionVerifiedDate" (onDateChanged)="verifiedDateChanged($event)"
+            formControlName="verifiedDate"></datepicker>
+
+          <mat-form-field>
+            <input matInput placeholder="आर्थिक बर्ष" formControlName="fiscalYear" autocomplete="off" readonly>
+            <mat-error>दर्ता भएकाे आर्थिक बर्ष ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="isOld">
+            <input matInput placeholder="दर्ता नंम्वर" formControlName="redgNo"
+              (ngModelChange)="this.registrationNoChanged.next($event)" autocomplete="off">
+            <mat-error>ब्यवसाय दर्ता नंम्वर ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="!isOld">
+            <input matInput placeholder="दर्ता नंम्वर" formControlName="redgNo" readonly autocomplete="off">
+            <mat-error>ब्यवसाय दर्ता नंम्वर ।</mat-error>
+          </mat-form-field>
+
+          <datepicker *ngIf="isOld" [option]="dpOptionLastRenew" formControlName="lastRenewDate"></datepicker>
+        </div>
+
+
+
+        <div *ngIf="!isOld" class="flex-row">
+          <mat-form-field *ngIf="allowApplicationFee" class="number">
+            <input matInput placeholder="निवेदन शुल्क" formControlName="applicationFee" autocomplete="off" readonly>
+            <mat-error>निवेदन शुल्क ।</mat-error>
+          </mat-form-field>
+          <div *ngIf="!allowApplicationFee"> </div>
+
+          <mat-form-field *ngIf="allowRegistrationFee" class="number">
+            <input matInput placeholder="दर्ता शुल्क" formControlName="registrationFee" autocomplete="off" readonly>
+            <mat-error>दर्ता शुल्क ।</mat-error>
+          </mat-form-field>
+          <div *ngIf="!allowRegistrationFee"> </div>
+
+          <mat-form-field *ngIf="allowPenalty" class="number">
+            <input matInput placeholder="जरिवाना" formControlName="penaltyFee" autocomplete="off" readonly>
+            <mat-error>जरिवाना ।</mat-error>
+          </mat-form-field>
+          <div *ngIf="!allowPenalty"></div>
+
+          <mat-form-field class="number">
+            <input matInput placeholder="ब्यवसाय कर" formControlName="businessTax" autocomplete="off" readonly>
+            <mat-error>ब्यवसाय कर</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div *ngIf="!isOld" class="flex-row">
+          <div></div>
+          <div></div>
+          <div></div>
+          <mat-form-field class="number">
+            <input matInput placeholder="जम्मा" formControlName="totalAmount" autocomplete="off" readonly>
+          </mat-form-field>
+        </div>
+
+        <mat-form-field class="flex-row">
+          <input matInput placeholder="प्रमाणपत्र दिने अधिकारीकाे नाम" formControlName="issuedPersonName"
+            autocomplete="off">
+          <mat-error>प्रमाणपत्र दिने अधिकारीकाे नाम ।</mat-error>
+        </mat-form-field>
+      </fieldset>
+      <button mat-raised-button type="button" color="primary" matStepperPrevious style="min-width: 100px;">Back</button>
+      <button *ngIf="formType=='verify'" mat-raised-button color="primary" style="width: 100px;"> Verify
+      </button>
+      <button *ngIf="isOld" mat-raised-button color="primary" style="width: 100px;">Save</button>
+    </mat-step>
+  </mat-horizontal-stepper>
+</form>

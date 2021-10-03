@@ -1,0 +1,28 @@
+<div class="slide-pane-container">
+    <app-slide-panel [activePane]="isLeftVisible ? 'left' : 'right'">
+        <div leftpane>
+            <app-business-list #list [viewType]="viewType" (buttonClicked)="onButtonClicked($event)">
+            </app-business-list>
+        </div>
+        <div rightpane>
+            <!-- <app-business-register #createForm *ngIf="formType!='print'" (buttonClicked)="onButtonClicked($event)">
+            </app-business-register> -->
+            <app-register #createForm *ngIf="formType!='print' && formType!='printId'" (buttonClicked)="onButtonClicked($event)">
+            </app-register>
+            <!-- <app-print-test #printForm *ngIf="formType=='print'" (buttonClicked)="onButtonClicked($event)"> -->
+
+            <!-- <app-normal-format #printForm *ngIf="formType=='print'" (buttonClicked)="onButtonClicked($event)">
+
+            </app-normal-format> -->
+
+            <app-certificate-with-title *ngIf="certificateFormat=='With Title' && formType=='print'" #withTitle
+                (buttonClicked)="onButtonClicked($event)"></app-certificate-with-title>
+            <app-certificate-without-title *ngIf="certificateFormat=='Without Title' && formType=='print'" #withoutTitle
+                (buttonClicked)="onButtonClicked($event)"></app-certificate-without-title>
+            <app-normal-format *ngIf="certificateFormat=='Default' && formType=='print'" #normalFormat
+                (buttonClicked)="onButtonClicked($event)"></app-normal-format>
+
+            <app-identity-card *ngIf="formType=='printId'" (buttonClicked)="onButtonClicked($event)" #printId></app-identity-card>
+        </div>
+    </app-slide-panel>
+</div>

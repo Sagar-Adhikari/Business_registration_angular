@@ -1,0 +1,120 @@
+.tree-heading{
+    height:50px; 
+    background-color: rgb(220, 219, 219);
+    padding-left:10px;
+  }
+  
+  .module-box{
+    padding:0px 10px; 
+  }
+  
+  .module-button{
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  #expand{ 
+    background: url('../../../../../../assets/icons/expand-tree.svg');  
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    background-position: 8px center;
+    background-color: transparent;
+    padding: 10px;
+    width: 30px;
+    height: 30px;     
+  }
+  
+  #collapse{
+    background: url('../../../../../../assets/icons/collapse-tree.svg');  
+    background-size: 14px 14px;
+    background-repeat: no-repeat;
+    background-position: 8px center;
+    background-color: transparent;
+    padding: 10px;
+    width: 30px;
+    height: 30px;
+  }
+  
+  
+  .search-box{
+    padding:0px 10px; 
+  }
+    
+  
+  .nirekha-tree{
+    background-color:transparent;
+    width:100%;
+  }
+  
+  .tree-icon{
+    background-size:cover; width:25px; height:25px; line-height: 25px;
+  }
+  
+  
+  .nirekha-tree-invisible {
+    display: none;
+  }
+    
+  .nirekha-tree ul,
+  .nirekha-tree li {
+    margin-top: 0;
+    margin-bottom: 0;
+    list-style-type: none;
+  }
+  .nirekha-tree ul{
+    padding-left: 10px;
+  }
+    
+  .mat-tree-node{
+    min-height: 38px;
+  }
+  
+  .background-highlight {
+    background-color:darkslategrey;
+    color: white;
+    border-radius: 12px;
+    margin-left: 5px;
+    }
+  
+  .tree-container{
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: calc(100% - 147px);
+    max-width: 260px;
+    min-width: 250px;
+    padding-left: 10px;
+    }
+  
+    .caption-container{  
+      white-space: nowrap;
+      cursor: pointer;
+      width: 100%;
+    //  text-align: center;
+      display: flex;
+      height: 30px;
+      place-items: center;
+      vertical-align: middle;
+      padding-left:5px;  
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      align-items: center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      margin-right: 20px;
+    }
+  
+    .node-caption{
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+    }
+    
+  
+    mat-form-field {
+      width: 100%;
+      min-width: 50px;
+    }

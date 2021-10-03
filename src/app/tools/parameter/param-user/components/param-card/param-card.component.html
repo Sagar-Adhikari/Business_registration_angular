@@ -1,0 +1,34 @@
+<div class="box">
+    <div fxFlex class="param-icon" *ngFor="let param of params">
+      <mat-card class="mat-card-nopadding">
+        <div fxFlex class="param-content">
+          <div mat-card-avatar class="param-image"></div>
+          <span class="param-label">
+            {{param.name}}
+          </span>
+          <span class="param-label">
+            {{param.nameNepali}}
+          </span>
+  
+          <div *ngIf="param.isGroup" class="param-type">
+            Parameter Group
+          </div>
+          <div *ngIf="!param.isGroup" class="param-type">
+            Parameter Item
+          </div>
+        </div>
+        <mat-card-actions class="mat-card-nopadding-footer">
+          <button mat-button mat-icon-button id="drill-down" matTooltip="Show child parameter of [{{param.name}}]"
+            matTooltipPosition="above" matTooltipShowDelay="300" *ngIf="param.isGroup" (click)="onDrillClicked(param.id)">
+          </button>
+  
+          <button mat-button mat-icon-button id="edit" matTooltip="Edit parameter [{{param.name}}]" matTooltipPosition="above"
+            matTooltipShowDelay="300" (click)="onEditClicked(param.id)">
+          </button>
+          <button mat-button mat-icon-button class="mat-icon-button-xs" id="delete" matTooltip="Delete parameter [{{param.name}}]"
+            matTooltipPosition="above" matTooltipShowDelay="300" (click)="onDeleteClicked(param.id)">
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>

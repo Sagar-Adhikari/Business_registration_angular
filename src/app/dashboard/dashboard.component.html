@@ -1,0 +1,12 @@
+<div class="body-container">
+  <div style="height:100%; width:100%; background-color:white;">
+    <app-product-wise-count *ngIf="!paramId"></app-product-wise-count>
+    <app-compare-fiscal-year *ngIf="paramId==1" [graphType]="1"></app-compare-fiscal-year>
+    <app-compare-fiscal-year *ngIf="paramId==2" [graphType]="2"></app-compare-fiscal-year>
+
+    <app-month-wise-count *ngIf="paramId==3"></app-month-wise-count>
+    <app-month-wise-revenue *ngIf="paramId==4"></app-month-wise-revenue>
+    <app-fiscal-year-wise-count *ngIf="paramId==5"></app-fiscal-year-wise-count>
+    <app-fiscal-year-wise-revenue *ngIf="paramId==6"></app-fiscal-year-wise-revenue>
+  </div>
+</div>

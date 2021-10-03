@@ -1,0 +1,151 @@
+<ngx-loading [show]="loading" [config]="{fullScreenBackdrop:false, backdropBackgroundColour:'transparent'}">
+</ngx-loading>
+
+<mat-toolbar color="primary" style="height:50px;">
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
+        *ngIf="globalService.isLoggedIn()">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <div class="toolbar-container" fxLayoutAlign="space-between center">
+        <div fxLayout="row">
+            <span class="company-title" (click)="titleClicked()" style="cursor:pointer;">
+                <h3>
+                    <strong>{{ paramValue.CompanyName}}</strong>
+
+                </h3>
+            </span>
+            <span #pageTitleContainer fxShow="false" fxShow.gt-sm class="page-address">
+                {{pageTitle}}
+            </span>
+        </div>
+
+        <div fxLayout="row">
+            <div *ngIf="roleId==0;then login else user_info"></div>
+        </div>
+    </div>
+</mat-toolbar>
+
+<mat-sidenav-container fullscreen class="sidenave-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="false"
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'" [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="globalService.isLoggedIn()">
+        <mat-nav-list *ngIf="roleId==0">
+            <a mat-list-item routerLink="/core/login">लगिन</a>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="roleId>0">
+            <!-- office-location -->
+            <a *ngIf="roleId==1" mat-list-item (click)="menuClicked('/parameter/param-setup')">पारामिटर</a>
+            <a *ngIf="roleId==1 || roleId==4" mat-list-item (click)="menuClicked('/brs/annex-setup')">अनुसुची ४</a>
+            <a *ngIf="roleId==1 || roleId==4" mat-list-item (click)="menuClicked('/brs/office-location')">कार्यालय
+                लाेकेसन</a>
+            <a *ngIf="roleId==1 || roleId==4" mat-list-item (click)="menuClicked('/parameter/param-value')">सेटिङ्गस</a>
+            <a *ngIf="roleId==1 || roleId==4" mat-list-item (click)="menuClicked('/core/user-list')">युजरहरू</a>
+            <a *ngIf="roleId >= 1 && roleId <=4" mat-list-item (click)="menuClicked('/brs/list-business')">ब्यवसाय
+                दर्ता</a>
+            <div *ngIf="roleId >= 1 && roleId <=4">
+                <mat-divider></mat-divider>
+                <mat-list-item>
+                    <strong>रिपाेर्ट</strong>
+                </mat-list-item>
+                <mat-divider></mat-divider>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/brs/list-business/verify')">भेरीफाइ हुन
+                    बाँकी</a>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/brs/list-business/print')">प्रिन्ट हुन
+                    बाँकी</a>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/brs/list-business/expired')">भाखा नाघेका</a>
+                <mat-divider></mat-divider>
+                <a *ngIf="roleId===1 || roleId===2 || roleId===4" mat-list-item (click)="menuClicked('/brs/all-business')">डिटेल लिस्ट</a>
+                <mat-divider></mat-divider>
+
+                <!-- business-location -->
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/dashboard/3')">मासिक दर्ता तथा नविकरण</a>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/dashboard/4')">मासिक राजस्व संकलन</a>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/dashboard/5')">आर्थिक बर्षमा दर्ता</a>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/dashboard/6')">आर्थिक बर्षमा राजस्व संकलन</a>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/dashboard/1')">आ. ब. अनुसार दर्ता तुलना</a>
+                <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/dashboard/2')">आ. ब. अनुसार राजस्व संकलन
+                    तुलना</a>
+                <mat-divider></mat-divider>
+            </div>
+            <a mat-list-item (click)="menuClicked('/brs/business-location')">ब्यजसायकाे लाेकेसन</a>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+                <strong>ब्यवसायीक सम्भाब्यता</strong>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/brs/list-ape')">नयाँ सम्भाब्यता</a>
+            <a *ngIf="roleId>=1" mat-list-item (click)="menuClicked('/brs/aps-details')">सम्भाब्यता लिस्ट</a>
+            <mat-divider></mat-divider>
+            <mat-list-item *ngIf="roleId==1 || roleId==4">
+                <strong>एस. एम. एस.</strong>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+            <a *ngIf="roleId==1 || roleId==4" mat-list-item (click)="menuClicked('/brs/send-sms')">एस एम एस पठाउन</a>
+            <a *ngIf="roleId==1 || roleId==4" mat-list-item (click)="menuClicked('/brs/sms-list')">एस एम एस पठाएकाे
+                लिस्ट</a>
+            <mat-divider></mat-divider>
+
+            <a *ngIf="roleId==1 || roleId==4" mat-list-item (click)="menuClickedToBackup()">Database Backup</a>
+        </mat-nav-list>
+        <div style="display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: solid 1px green;
+        background: linear-gradient(45deg, #80b4cc, transparent);">
+            <div class="small-note">
+                Developed and Marketed By
+            </div>
+            <div>
+                <strong>Nirekha.com</strong>
+            </div>
+            <div class="small-note">
+                Ph. 9851035351
+            </div>
+        </div>
+    </mat-sidenav>
+
+    <mat-sidenav-content [@fadeAnimation]="o.isActivated ? o.activatedRoute : ''"
+        (@fadeAnimation.start)="animStart($event)" (@fadeAnimation.done)="animStart($event)">
+        <router-outlet #o="outlet">
+        </router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
+
+<ng-template #login>
+    <span #userinfo (click)="openMenu($event)" class="pointer-user">
+        <h2 class="mat-toolbar-tools">
+            {{ greetings }}
+        </h2>
+    </span>
+    <button mat-button [matMenuTriggerFor]="menu" id="menuBtn" style="display:none;"></button>
+</ng-template>
+
+<ng-template #user_info>
+    <span #userinfo (click)="openMenu($event)" class="pointer-user">
+        <h2 class="mat-toolbar-tools" float="right">
+            <span> {{ greetings }},</span>
+            <strong>
+                {{displayName}}
+            </strong>
+        </h2>
+    </span>
+    <button mat-button [matMenuTriggerFor]="menu" id="menuBtn" style="display:none;"></button>
+</ng-template>
+
+<mat-menu #menu="matMenu" x-position="after" yPosition="below" [overlapTrigger]="false" (close)="onMenuClosed()">
+    <button *ngIf="roleId!=0" mat-menu-item class="menuOpnBtn" routerLink="/change-password">
+        <mat-icon>vpn_key</mat-icon>
+        पासवर्ड परिवर्तन
+    </button>
+
+    <button *ngIf="roleId!=0" mat-menu-item class="menuOpnBtn" (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        लग आउट
+    </button>
+
+    <button *ngIf="roleId==0" mat-menu-item class="menuOpnBtn" routerLink="/core/login">
+        <mat-icon>star_border</mat-icon>
+        लगिन
+    </button>
+</mat-menu>

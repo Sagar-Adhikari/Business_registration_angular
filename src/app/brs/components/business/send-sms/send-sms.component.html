@@ -1,0 +1,135 @@
+<div fxLayout="row" fxFlexFill>
+  <div style="width:100%;">
+    <div fxLayout="row" fxLayoutGap="5px" fxLayoutAlign="space-between center"
+      style="background-color:rgb(238, 235, 235);height:40px;">
+      <span style="padding-left:20px;">एस एम एस मेसेज</span>
+    </div>
+    <form [formGroup]="formGroup" class="body-container" #registerFormGroup>
+      <div formArrayName="formArray">
+        <div formGroupName="0" class="flex-row">
+          <mat-form-field>
+            <mat-select #eleClassId placeholder="कम्पनीकाे प्रकार" formControlName="businessClassId"
+              (selectionChange)="businessTypeChanged(1)">
+              <mat-option *ngFor="let item of businessClassAnnex.rateList" [value]="item.id">
+                {{item.caption}}
+              </mat-option>
+            </mat-select>
+            <mat-hint>ब्यवसायकाे प्रकार छान्नुहाेस ।</mat-hint>
+            <mat-error>कम्पनीकाे प्रकार छान्नुहाेस ।</mat-error>
+          </mat-form-field>
+
+          <mat-form-field *ngIf="businessClassAnnex.hasChild">
+            <mat-select placeholder="ब्यवसायकाे प्रकार" formControlName="businessTypeId"
+              (selectionChange)="businessTypeChanged(2)">
+              <mat-option *ngFor="let item of businessTypeAnnex.rateList" [value]="item.id">
+                {{item.caption}}
+              </mat-option>
+            </mat-select>
+            <mat-error>ब्यवसायकाे किसिम छान्नुहाेस ।</mat-error>
+            <mat-hint>ब्यवसायकाे प्रकार छान्नुहाेस ।</mat-hint>
+
+          </mat-form-field>
+
+          <mat-form-field *ngIf="hasBusinessSize">
+            <mat-select placeholder="ब्यवसायको आकार" formControlName="businessSizeId"
+              (selectionChange)="businessTypeChanged(3)">
+              <mat-option *ngFor="let item of businessSizeAnnex.rateList" [value]="item.id">
+                {{item.caption}}
+              </mat-option>
+            </mat-select>
+            <mat-hint>ब्यवसायकाे प्रकार छान्नुहाेस ।</mat-hint>
+            <mat-error>ब्यवसायको आकार छान्नुहाेस ।</mat-error>
+          </mat-form-field>
+        </div>
+        <div formGroupName="1" class="flex-row" style="height: calc( 100vh - 200px);">
+          <div>
+            <span>ब्यवसायीहरूकाे लिस्ट</span>
+            <div style="width:100%; height:100%; overflow-y: scroll;">
+              <table style="width:100%;" mat-table #table [dataSource]="dataSource" aria-label="Elements"
+                class="mat-elevation-z8">
+
+
+
+
+                <ng-container matColumnDef="memberName">
+                  <th mat-header-cell *matHeaderCellDef>
+                    ब्यवसायी / ब्यवसायकाे नाम
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    <!-- {{ row.memberName}}
+                    <br>
+                    {{ row.businessName}} -->
+                    <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title>
+                            Personal data
+                          </mat-panel-title>
+                          <!-- <mat-panel-description>
+                            Type your name and age
+                          </mat-panel-description> -->
+                        </mat-expansion-panel-header>
+                    
+                        <mat-form-field>
+                          <input matInput placeholder="First name">
+                        </mat-form-field>
+                    
+                        <mat-form-field>
+                          <input matInput placeholder="Age">
+                        </mat-form-field>
+                      </mat-expansion-panel>
+                  </td>
+                </ng-container>
+
+                <ng-container matColumnDef="mobileNo">
+                  <th mat-header-cell *matHeaderCellDef>
+                    माेबाइल नं.
+                  </th>
+                  <td mat-cell *matCellDef="let row">
+                    {{ row.mobileNo}}
+                  </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+              </table>
+            </div>
+          </div>
+          <div fxLayout="column">
+            <mat-form-field>
+              <mat-label>माेबाइल नं</mat-label>
+              <textarea matInput formControlName="mobileNo" matTextareaAutosize matAutosizeMinRows=1
+                matAutosizeMaxRows=5 readonly></textarea>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>बिषय</mat-label>
+              <input matInput formControlName="title" autocomplete="off">
+              <mat-hint>मेसेजकाे बिषय</mat-hint>
+              <mat-error>मेसेजकाे बिषय अावस्यक छ।</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+              <mat-label>मेसेज</mat-label>
+
+              <textarea matInput formControlName="message" matTextareaAutosize matAutosizeMinRows=1 matAutosizeMaxRows=5
+                autocomplete="off" (ngModelChange)="getLength($event)"></textarea>
+              <mat-hint>मेसेज</mat-hint>
+              <mat-error>मेसेज अावस्यक छ।</mat-error>
+              <button mat-button type="button" matTooltip="Message Length" tabindex="-1" matSuffix
+                mat-icon-button aria-label="Clear" >
+                {{textLength}}
+            </button>
+            </mat-form-field>
+
+            <div style="padding:50px 0px;">
+              <button mat-raised-button type="button" [disabled]="disabled" (click)="save(formArray.get([1]))"> मेसेज पठाउनुहाेस </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+  </div>

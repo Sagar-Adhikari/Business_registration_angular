@@ -1,0 +1,38 @@
+.login-form{
+    width: 50%;
+    padding: 10px;
+    margin: auto;
+}
+.avatar-container{
+    text-align: center;
+    padding-bottom: 25px;
+  }
+
+  .login-avatar{
+      background-size: cover;
+      height: 200px;
+      width: 230px;
+    }
+
+    .item{
+        margin: 20px 50px;
+    }
+
+    .item-align-end{
+        display:flex; place-content: flex-end;
+    }
+
+
+    @media(max-width: 800px)
+{
+    .login-form{
+        width:100%;
+        padding:5px;
+    }
+}
+
+@media(max-width:600px){
+    .item{
+        margin: 5px 5px;
+    }
+}

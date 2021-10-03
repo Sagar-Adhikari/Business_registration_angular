@@ -1,0 +1,290 @@
+@import "~material-design-icons/iconfont/material-icons.css";
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "~@angular/material/theming";
+@import "./quill.bubble.css";
+@import "./quill.core.css";
+@import "./quill.snow.css";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$brs-primary: mat-palette($mat-indigo);
+$brs-accent: mat-palette($mat-pink, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$brs-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$brs-theme: mat-light-theme($brs-primary, $brs-accent, $brs-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($brs-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif, "PCS NEPALI";
+}
+
+router-outlet ~ * {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+mat-sidenav-container[fullscreen] {
+  top: 50px !important;
+}
+
+.body-container {
+  width: 100%;
+  height: 100%;
+  //  position: absolute;
+  justify-content: space-between;
+  top: 0px;
+  bottom: 0px;
+  overflow-y: auto;
+  display: flex;
+  align-items: flex-start;
+  border: 1px dashed rgba(114, 186, 94, 0.35);
+  background: rgba(114, 186, 94, 0.05);
+}
+
+.page-header {
+  height: 40px;
+  background-color: rgb(220, 219, 219);
+  // padding-left:10px;
+  padding: 5px 10px 5px 10px;
+  place-content: center flex-start;
+  align-items: center;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+}
+
+.mat-icon-button-xs {
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+  width: 100%;
+  height: 100% !important;
+}
+
+.flex-container > * {
+  flex: 1 1 150px;
+  margin: 0px 0px 0px 1px;
+}
+
+.flex-row {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  width: 100%;
+}
+
+.flex-row > * {
+  margin: 15px 5px 15px 5px;
+  max-width: 1550px;
+  flex: 1 1 150px;
+}
+
+// .flex-col {
+//     display: flex;
+//     flex-wrap: wrap;
+//     flex-direction: column;
+//     width:100%;
+// }
+
+// .flex-col>* {
+//     margin: 15px 5px 15px 5px;
+//     max-width: 1550px;
+//     flex: 1 1 150px;
+// }
+
+// right-side information
+.right-side-info {
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0rem;
+  width: 50%;
+}
+
+.right-side-info-background {
+  background-size: 700px;
+  min-height: 92.3vh;
+  display: flex;
+  flex-grow: inherit;
+  flex-direction: row;
+  position: relative;
+  width: 100%;
+}
+
+.right-side-info-background-transparent {
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: contain;
+  bottom: 0;
+  left: -40px;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+}
+
+.right-side-info-text {
+  background-color: transparent;
+  max-width: 100%;
+  padding: 32px;
+  margin: 10px 50px;
+}
+
+.number {
+  text-align: right !important;
+}
+.mat-form-field {
+  line-height: 1.45;
+}
+
+.small-note {
+  font-size: 12px;
+  color: gray;
+  padding: 10px;
+}
+
+.mat-menu-content {
+  padding: 0px !important;
+}
+// .mat-menu-panel{
+//     max-width: 300px !important;
+// }
+
+//snackbar
+.error-snackbar {
+  background: maroon;
+  color: white;
+}
+
+.success-snackbar {
+  background: rgba(10, 224, 28, 0.699);
+  color: navy;
+}
+.warning-snackbar {
+  background: rgba(236, 233, 36, 0.884);
+  color: navy;
+}
+
+.info-snackbar {
+  background: rgb(2, 2, 3);
+  color: white;
+}
+
+.message-box-no-padding .mat-dialog-container {
+  padding: 0;
+  overflow: hidden;
+}
+
+.slide-pane-container {
+  display: block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-form-field-nepali {
+  font-size: inherit;
+  font-weight: 400;
+  // line-height:1.125;
+  font-family: "PCS NEPALI", "Helvetica Neue", sans-serif;
+}
+
+.display-field-nepali {
+  font-family: "PCS NEPALI", "Preeti", "Kantipur";
+}
+
+fieldset {
+  border-width: 1px;
+  border-color: rgba(255, 255, 255, 0.2);
+}
+@media (max-width: 800px) {
+  body {
+    margin: 0px;
+  }
+  mat-sidenav-container[fullscreen] {
+    top: 50px !important;
+  }
+
+  .flex-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .flex-row > * {
+    margin: 15px 5px 10px 5px;
+    max-width: 600px;
+    flex: 1 1 150px;
+  }
+  .right-side-info {
+    display: none;
+  }
+}
+
+@media print {
+  body.A4 {
+    width: 210mm;
+  }
+  .fiscal-year {
+    margin: 240px 0px 0px 235px;
+    width: 150px;
+  }
+
+}
+
+@page {
+  size: A4;
+  margin: 0mm;
+  padding: 0mm;
+}
+
+.sheet {
+  font-size: 14px;
+  font-family: "PCS NEPALI";
+  width: 210mm;
+  height: 297mm;
+  border: 1px solid #000;
+  page-break-after: avoid;
+  // background-image: url('assets/background/roshi-certificate.jpg');
+  background-size: 210mm 297mm;
+  overflow: hidden;
+}
+
+.sheet > * {
+  height: 40px;
+}

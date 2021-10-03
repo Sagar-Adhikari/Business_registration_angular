@@ -1,0 +1,24 @@
+<mat-card class="message-box">
+    <mat-card-header class="message-box-header">
+      <mat-card-title class="message-box-title">{{caption}}</mat-card-title>
+      <button mat-icon-button class="close-button" tabindex="-1" (click)="closeDialog('cancel')" aria-label="Toggle menu"
+        matTooltip="Close" matTooltipPosition="left" matTooltipShowDelay="300">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="message-box-content">
+        <div class="message-box-container">
+          <p id='message-box-text'>
+              {{messageText}}
+          </p>
+        </div>
+      </div>
+      <mat-card-actions>
+          <div class="message-box-action">
+              <button mat-raised-button (click)="closeDialog('yes')">Yes</button>
+              <button mat-raised-button (click)="closeDialog('cancel')">No</button>   
+          </div>       
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>

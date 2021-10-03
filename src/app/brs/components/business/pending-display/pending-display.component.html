@@ -1,0 +1,34 @@
+<div class="flex-row" fxLayoutAlign="space-between" padding="margin:0px 50px;">
+  <div class="outer">
+    <div class="outer-child pending-verify">
+      <div class="no-of-record" (click)="labelClick('verify')">
+        {{pendingVerify}}
+      </div>
+    </div>
+    <div class="pending-caption">
+      भेरिफाइ हुन बाँकी
+    </div>
+  </div>
+
+  <div class="outer">
+    <div class="outer-child pending-printing">
+      <div class="no-of-record"  (click)="labelClick('print')">
+        {{pendingPrint}}
+      </div>
+    </div>
+    <div class="pending-caption">
+      प्रिन्ट गर्न बाँकी
+    </div>
+  </div>
+
+  <div class="outer">
+    <div class="outer-child expired">
+      <div class="no-of-record"  (click)="labelClick('expired')">
+        {{expired}}
+      </div>
+    </div>
+    <div class="pending-caption">
+      भाखा नाघेका
+    </div>
+  </div>
+</div>

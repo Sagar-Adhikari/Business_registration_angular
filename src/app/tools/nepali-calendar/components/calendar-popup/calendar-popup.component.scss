@@ -1,0 +1,82 @@
+.with-range{
+  height: 318px;
+}
+
+.with-range-with-time{
+  height: 405px;
+}
+
+.without-range{
+  height: 277px;
+}
+.without-range-with-time{
+  height: 365px;
+}
+
+
+.footer-with-time{
+  position: relative;
+  width: 100%;
+  top: 327px;
+  background: white;
+}
+
+.container {
+  width: 275px; 
+  position: relative;
+  border: 1px solid #ccc;
+  -webkit-perspective: 0px;
+  -moz-perspective: 0px;
+  -o-perspective: 0px;
+  perspective: 0px;
+  overflow: hidden;
+}
+.card {
+  width: 100%;
+ // height: 100%;
+  position: relative;
+  -webkit-transition: -webkit-transform 0.25s;
+  -moz-transition: -moz-transform 0.25s;
+  -o-transition: -o-transform 0.25s;
+  transition: transform 0.25s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: 50% 50%;
+}
+.card div {
+  display: block;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+.card .front {
+background: #ccc;
+}
+.card .back {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+.active{
+  background-color: white;
+}
+.none-active{
+  background-color: silver;
+  display: none;  
+}
+
+.card.flipped {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
